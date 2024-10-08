@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-</head>
+% include("header.stpl")
 <body>
     <h1>{{name}}</h1>
     % if "image" in data:

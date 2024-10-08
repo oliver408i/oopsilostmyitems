@@ -1,6 +1,7 @@
 import bottle, json
 
 app = bottle.Bottle()
+bottle.TEMPLATE_PATH = ['./templates']
 
 database = json.load(open('./database.json'))
 
@@ -14,7 +15,7 @@ def static(filename):
 
 @app.route('/tpl/itemview/<item>/', method='GET')
 def itemview(item):
-    return bottle.SimpleTemplate(open("templates/itemCardView.stpl", 'r').read()).render(name=item, data=database[item])
+    return bottle.template("itemCardView.stpl",name=item, data=database[item])
 
 @app.route('/api/item/<item>/get', method='GET')
 def item(item):
