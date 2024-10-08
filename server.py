@@ -9,6 +9,10 @@ database = json.load(open('./database.json'))
 def index():
     return bottle.static_file('index.html', root='./static')
 
+@app.route('/d1362b46-48db-407d-a9bb-3a87c8634aa6')
+def maincss():
+    return bottle.static_file('maincss.css', root='./')
+
 @app.route('/static/<filename>')
 def static(filename):
     return bottle.static_file(filename, root='./static')
