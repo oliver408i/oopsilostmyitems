@@ -12,6 +12,10 @@ def index():
 def static(filename):
     return bottle.static_file(filename, root='./static')
 
+@app.route('/tpl/itemview/<item>/', method='GET')
+def itemview(item):
+    return bottle.SimpleTemplate(open("templates/itemCardView.stpl", 'r').read()).render(name=item, data=database[item])
+
 @app.route('/api/item/<item>/get', method='GET')
 def item(item):
     if item not in database:

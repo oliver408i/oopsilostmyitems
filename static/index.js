@@ -1,6 +1,7 @@
 getForm = document.getElementById("getForm");
 getItem = document.getElementById("getItem");
 result = document.getElementById("result");
+resultFrame = document.getElementById("resultIFrame");
 
 getForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -9,6 +10,7 @@ getForm.addEventListener("submit", (event) => {
     })
     .then((response) => {
         if (response.status === 200) {
+            resultFrame.src = '/tpl/itemview/'+ getForm.name.value + '/';
             return response.json();
         } else {
             return {

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+<body>
+    <h1>{{name}}</h1>
+    % if "image" in data:
+    <img src="{{data['image']}}">
+    % else:
+    <p>No image available</p>
+    % end
+    <p>Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
+    <p>{{data['description'] if 'description' in data else 'None'}}</p>
+</body>
