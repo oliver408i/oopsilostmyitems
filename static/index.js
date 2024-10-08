@@ -4,7 +4,7 @@ result = document.getElementById("result");
 
 getForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    fetch("/api/item/" + getForm.name.value + "/", {
+    fetch("/api/item/" + getForm.name.value + "/get", {
         method: "GET",
     })
     .then((response) => {
@@ -25,7 +25,7 @@ getForm.addEventListener("submit", (event) => {
 getAllForm = document.getElementById("getAllForm");
 getAllForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    fetch("/api/item/all/", {
+    fetch("/api/item/all", {
         method: "GET",
     })
     .then((response) => {
@@ -51,12 +51,16 @@ createForm.addEventListener("submit", (event) => {
         result.innerHTML = "Error: name cannot be empty";
         return;
     }
-    fetch("/api/item/" + createForm.name.value + "/update/", {
+    fetch("/api/item/" + createForm.name.value + "/create", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: createForm.value.value,
     })
     .then((response) => {
-        if (response.status === 200) {
-            return response.json();
+        if (response.status === 200 || response.status === 201) {
+            return response;
         } else {
             return {
                 error: "Error",
@@ -80,6 +84,9 @@ updateForm.addEventListener("submit", (event) => {
     }
     fetch("/api/item/" + updateForm.name.value + "/update", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
         body: value,
     })
     .then((response) => {
@@ -106,7 +113,7 @@ deleteForm.addEventListener("submit", (event) => {
         return;
     }
     fetch("/api/item/" + deleteForm.name.value + "/delete", {
-        method: "POST",
+        method: "DELETE",
     })
     .then((response) => {
         if (response.status === 204) {

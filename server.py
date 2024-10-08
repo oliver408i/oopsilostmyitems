@@ -12,26 +12,32 @@ def index():
 def static(filename):
     return bottle.static_file(filename, root='./static')
 
-@app.route('/api/item/<item>/', method='GET')
+@app.route('/api/item/<item>/get', method='GET')
 def item(item):
     if item not in database:
         return bottle.abort(404, "Item not found")
     return database[item]
 
-@app.route('/api/item/<item>/update/', method='POST')
+@app.post('/api/item/<item>/update')
 def update(item):
+    global database
     if item not in database:
+        database[item] = {}
+        json.dumps(database, open('./database.json', 'w'))
         return bottle.HTTPResponse("Item created", status=201)
     try:
         arc = bottle.request.json
     except ValueError:
         return bottle.HTTPResponse("Invalid JSON", status=400)
+    if not arc:
+        return bottle.HTTPResponse("No JSON data", status=400)
     database[item] = arc
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(status=204)
 
-@app.route('/api/item/<item>/delete/', method='DELETE')
+@app.route('/api/item/<item>/delete', method='DELETE')
 def delete(item):
+    global database
     if item in database:
         del database[item]
         json.dump(database, open('./database.json', 'w'))
@@ -39,8 +45,8 @@ def delete(item):
     else:
         return bottle.abort(404, "Item not found")
 
-@app.route('/api/item/all/', method='GET')
+@app.route('/api/item/all', method='GET')
 def all():
     return json.dumps({"items": list(database.keys())})
-
+bottle.debug(True)
 app.run()
