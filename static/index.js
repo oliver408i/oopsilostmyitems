@@ -53,12 +53,8 @@ createForm.addEventListener("submit", (event) => {
         result.innerHTML = "Error: name cannot be empty";
         return;
     }
-    fetch("/api/item/" + createForm.name.value + "/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: createForm.value.value,
+    fetch("/api/item/" + createForm.name.value + "/update", {
+        method: "POST"
     })
     .then((response) => {
         if (response.status === 200 || response.status === 201) {
@@ -120,6 +116,35 @@ deleteForm.addEventListener("submit", (event) => {
     .then((response) => {
         if (response.status === 204) {
             return "Success (no content)";
+        } else {
+            return {
+                error: "Error",
+                status: response.status,
+            };
+        }
+    })
+    .then((data) => {
+        result.innerHTML = JSON.stringify(data);
+    });
+})
+
+uploadForm = document.getElementById("uploadForm");
+uploadImage = document.getElementById("uploadImage");
+uploadForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (uploadForm.name.value === "") {
+        result.innerHTML = "Error: name cannot be empty";
+        return;
+    }
+    formData = new FormData(uploadForm);
+    formData.append("upload", uploadForm.upload.files[0]);
+    fetch("/api/item/" + uploadForm.name.value + "/image", {
+        method: "PUT",
+        body: formData,
+    })
+    .then((response) => {
+        if (response.status === 201) {
+            return response.json();
         } else {
             return {
                 error: "Error",
