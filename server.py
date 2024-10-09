@@ -79,8 +79,8 @@ def upload_image(item):
     if not upload:
         return bottle.abort(400, "No image to upload")
     _, ext = os.path.splitext(upload.filename)
-    if ext not in ['.png', '.jpg', '.jpeg']:
-        return bottle.abort(400, "Only .png, .jpg, .jpeg images are allowed")
+    if ext not in ['.png', '.jpg', '.jpeg', '.webp']:
+        return bottle.abort(400, "Only .png, .jpg, .jpeg, .webp images are allowed")
     id = su.generate_id()
     dest = os.path.join('./images/', id + ext)
     upload.save(dest, overwrite=True)
