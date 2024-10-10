@@ -17,7 +17,7 @@ def devpage():
 
 @app.route('/d1362b46-48db-407d-a9bb-3a87c8634aa6')
 def maincss():
-    return bottle.static_file('maincss.css', root='./')
+    return bottle.static_file('main.min.css', root='./')
 
 @app.route('/static/<filename>')
 def static(filename):
