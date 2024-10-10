@@ -1,58 +1,60 @@
 % include("header.stpl")
 <body>
-    <h1>{{name}}</h1>
+    <h1 style="display: flex; justify-content: center;">{{name}}</h1>
     % if len(data['images']) > 0:
     % import time
     <div class="gallery">
-        <div class="sidebuttoncontainer">
-        <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
-        <button class="next" onclick="plusSlides(1)">&#10095;</button>
-        </div>
-        <div class="slidecontainer">
-            <div class="slideshow-container">
-                <div class="imageSlides">
+        <div class="slideshow-container" style="display: flex; justify-content: center;">
+            <div class="imageSlides" style="display: flex; justify-content: center;">
                     % for image in sorted(data['images'], key=lambda i: data['images'][i]['timestamp'], reverse=True):
-                    <img class="slide" style="display: none; width: 50%" src="{{'/api/images/' + image}}" alt="{{image}}" data-timestamp="{{data['images'][image]['timestamp']}}">
+                <img class="slide" style="display: none; width: auto; height: 200px; text-align: center;" src="{{'/api/images/' + image}}" alt="{{image}}" data-timestamp="{{data['images'][image]['timestamp']}}">
                     % end
-                    <p id="timestamp"></p>
                 </div>
-            </div>
         </div>
-        <script>
-            var slideIndex = 1;
-            showSlides(slideIndex);
-
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
-            }
-
-            function currentSlide(n) {
-                showSlides(slideIndex = n);
-            }
-
-            function showSlides(n) {
-                var i;
-                var slides = document.getElementsByClassName("slide");
-                if (n > slides.length) {slideIndex = 1}
-                if (n < 1) {slideIndex = slides.length}
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                slides[slideIndex-1].style.display = "block";
-                var d = new Date(slides[slideIndex-1].dataset.timestamp*1000);
-                document.getElementById('timestamp').innerHTML = 'Image time: ' + d.toLocaleString().split(' ')[0] + ' ' + d.toLocaleString().split(' ')[1].split(':')[0] + ':' + d.toLocaleString().split(' ')[1].split(':')[1] + ' ' + d.toLocaleString().split(' ')[2].toUpperCase();
-            }
-        </script>
+        <div style="text-align: center;">
+            <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+            <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        </div>
+        <p id="timestamp" style="display: flex; justify-content: center; font-size: small; margin-top: 5px;"></p>
     </div>
     % else:
     <p>No images available</p>
     % end
-    <p><i>UUID: {{data['uuid']}}</i></p>
-    <p>Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
-    <p id="desc" style="display:none">{{data['description'] if 'description' in data else 'None'}}</p>
+    <p id="desc" style="display:none;">{{data['description'] if 'description' in data else 'None'}}</p>
     % if 'description' in data and data['description']:
     <script>
-        document.getElementById('desc').style.display = 'block';
+        document.getElementById('desc').style.display = 'flex'; 
+        document.getElementById('desc').style.justifyContent = 'center';
     </script>
     % end
+    <hr>
+    <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
+    <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
+    
+    
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("slide");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+            var d = new Date(slides[slideIndex-1].dataset.timestamp*1000);
+            document.getElementById('timestamp').innerHTML = 'Image time: ' + d.toLocaleString().split(' ')[0] + ' ' + d.toLocaleString().split(' ')[1].split(':')[0] + ':' + d.toLocaleString().split(' ')[1].split(':')[1] + ' ' + d.toLocaleString().split(' ')[2].toUpperCase();
+        }
+    </script>
 </body>
