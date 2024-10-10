@@ -13,10 +13,15 @@
     </div>
     <div id="content">
       % for item in data:
-      <button class="card" id="{{data[item]["uuid"]}}">
-        <h1>{{data[item]["name"]}}</h1>
-        <p>{{data[item]["description"]}}</p>
-      </button>
+        <button class="card" id="{{data[item]['uuid']}}">
+          <a class="cardLink" href="/uuid/{{data[item]['uuid']}}">
+            <h1>{{data[item]["name"]}}</h1>
+            % if data[item]["images"]:
+              <img src="/api/images/{{max(data[item]['images'], key=lambda i: data[item]['images'][i]['timestamp'])}}" style="width: auto; height: 25%;">
+            % end
+            <p>{{data[item]["description"]}}</p>
+          </a>
+        </button>
       %end
     </div>
   </div>
