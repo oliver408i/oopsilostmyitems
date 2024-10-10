@@ -1,10 +1,16 @@
-#getALL,
-#getItem,
-#createItem,
-#updateItem,
-#deleteItem,
-#uploadImage {
-    display: inline-block;
-    margin: 10px;
-    vertical-align: top;
+.card {
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+  padding: 0.5em;
+}
+
+.card h1,
+p {
+  color: black;
+}
+
+.card h1 {
+  font-size: 20px;
 }
