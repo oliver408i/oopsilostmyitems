@@ -22,7 +22,11 @@ def websocket(ws):
 
 @app.route('/')
 def index():
-    return bottle.static_file('index.html', root='./static')
+    return bottle.static_file('mainpage.html', root='./static')
+
+@app.route('/devpage')
+def devpage():
+    return bottle.static_file('devpage.html', root='./static')
 
 @app.route('/d1362b46-48db-407d-a9bb-3a87c8634aa6')
 def maincss():
