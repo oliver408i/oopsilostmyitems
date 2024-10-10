@@ -1,0 +1,51 @@
+% if len(data['images']) > 0:
+% import time
+<div class="gallery">
+    <div class="slideshow-container" style="display: flex; justify-content: center;">
+        <div class="imageSlides" style="display: flex; justify-content: center;">
+                % for image in sorted(data['images'], key=lambda i: data['images'][i]['timestamp'], reverse=True):
+            <img class="slide" style="display: none; width: auto; height: 200px; text-align: center;" src="{{'/api/images/' + image}}" alt="{{image}}" data-timestamp="{{data['images'][image]['timestamp']}}">
+                % end
+            </div>
+    </div>
+    <div style="text-align: center;">
+        <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="next" onclick="plusSlides(1)">&#10095;</button>
+    </div>
+    <p id="timestamp" style="display: flex; justify-content: center; font-size: small; margin-top: 5px;"></p>
+</div>
+% else:
+<p>No images available</p>
+% end
+<p id="desc" style="display:none;">{{data['description'] if 'description' in data else 'None'}}</p>
+% if 'description' in data and data['description']:
+<script>
+    document.getElementById('desc').style.display = 'flex'; 
+    document.getElementById('desc').style.justifyContent = 'center';
+</script>
+% end
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("slide");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex-1].style.display = "block";
+        var d = new Date(slides[slideIndex-1].dataset.timestamp*1000);
+        document.getElementById('timestamp').innerHTML = 'Image time: ' + d.toLocaleString().split(' ')[0] + ' ' + d.toLocaleString().split(' ')[1].split(':')[0] + ':' + d.toLocaleString().split(' ')[1].split(':')[1] + ' ' + d.toLocaleString().split(' ')[2].toUpperCase();
+    }
+</script>
