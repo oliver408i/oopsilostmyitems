@@ -13,7 +13,10 @@
     </div>
     <div id="content">
       % for item in data:
-      <p>{{data[item]["uuid"]}}</p>
+      <button class="card" id="{{data[item]["uuid"]}}">
+        <h1>{{data[item]["name"]}}</h1>
+        <p>{{data[item]["description"]}}</p>
+      </button>
       %end
     </div>
   </div>
