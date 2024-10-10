@@ -7,22 +7,9 @@ bottle.TEMPLATE_PATH = ['./templates']
 
 database = json.load(open('./database.json'))
 
-@app.route('/ws', apply=[bws.websocket])
-def websocket(ws):
-    print("Client connected")
-    while True:
-        message = ws.receive()
-        if message is None:
-            break
-        if message == 'ping':
-            ws.send('pong')
-        else:
-            ws.send('pong')
-    print("Client disconnected")
-
 @app.route('/')
 def index():
-    return bottle.static_file('mainpage.html', root='./static')
+    return bottle.static_file('index.html', root='./static')
 
 @app.route('/devpage')
 def devpage():

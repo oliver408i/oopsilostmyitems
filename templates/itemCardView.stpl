@@ -4,8 +4,10 @@
     % if len(data['images']) > 0:
     % import time
     <div class="gallery">
+        <div class="sidebuttoncontainer">
         <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
         <button class="next" onclick="plusSlides(1)">&#10095;</button>
+        </div>
         <div class="slidecontainer">
             <div class="slideshow-container">
                 <div class="imageSlides">

@@ -1,0 +1,10 @@
+#getALL,
+#getItem,
+#createItem,
+#updateItem,
+#deleteItem,
+#uploadImage {
+    display: inline-block;
+    margin: 10px;
+    vertical-align: top;
+}
