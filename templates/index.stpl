@@ -13,10 +13,15 @@
     </div>
     <div id="content">
       % for item in data:
+<<<<<<< Updated upstream
       <button class="card" id="{{data[item]["uuid"]}}">
         <h1>{{data[item]["name"]}}</h1>
         <p>{{data[item]["description"]}}</p>
       </button>
+=======
+      <p>{{data[item]["uuid"]}}</p>
+      <a href = '/uuid/{{data[item]["uuid"]}}'> get details</a>
+>>>>>>> Stashed changes
       %end
     </div>
   </div>
