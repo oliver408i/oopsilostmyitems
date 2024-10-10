@@ -1,3 +1,8 @@
 env
 .DS_Store
 __pycache__
+bin
+lib
+include
+lib64
+pyvenv.cfg
