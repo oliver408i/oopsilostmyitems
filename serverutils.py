@@ -5,6 +5,6 @@ def generate_id():
 
 def find_item_by_uuid(database, uuid):
     for item in database:
-        if item['uuid'] == uuid:
-            return item
+        if database[item]['uuid'] == uuid:
+            return database[item]
     return None
