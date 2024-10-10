@@ -9,7 +9,7 @@ database = json.load(open('./database.json'))
 
 @app.route('/')
 def index():
-    return bottle.static_file('index.html', root='./static')
+    return bottle.template('index.stpl', data=database)
 
 @app.route('/devpage')
 def devpage():
