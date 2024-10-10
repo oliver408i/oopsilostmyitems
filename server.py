@@ -1,10 +1,24 @@
 import bottle, json, uuid, os, time
+import bottle.ext.websocket as bws # type: ignore
 import serverutils as su
 
 app = bottle.Bottle()
 bottle.TEMPLATE_PATH = ['./templates']
 
 database = json.load(open('./database.json'))
+
+@app.route('/ws', apply=[bws.websocket])
+def websocket(ws):
+    print("Client connected")
+    while True:
+        message = ws.receive()
+        if message is None:
+            break
+        if message == 'ping':
+            ws.send('pong')
+        else:
+            ws.send('pong')
+    print("Client disconnected")
 
 @app.route('/')
 def index():
@@ -51,8 +65,6 @@ def update(item):
         return bottle.HTTPResponse("No JSON data", status=400)
     if 'description' in arc:
         database[item]['description'] = arc['description']
-    if 'image' in arc:
-        database[item]['image'] = arc['image']
     if 'amount' in arc:
         database[item]['amount'] = arc['amount']
     if 'name' in arc:
@@ -86,7 +98,7 @@ def upload_image(item):
     upload.save(dest, overwrite=True)
     database[item]['images'][id] = {"timestamp": int(time.time())}
     json.dump(database, open('./database.json', 'w'))
-    return bottle.HTTPResponse(status=201)
+    return bottle.HTTPResponse(id, status=201)
 
 @app.route('/api/images/<uuid>', method="GET")
 def get_image(uuid):
@@ -99,5 +111,6 @@ def get_image(uuid):
 @app.route('/api/item/all', method='GET')
 def all():
     return json.dumps({"items": list(database.keys())})
-bottle.debug(True)
-app.run()
+
+
+app.run(server=bws.GeventWebSocketServer)
