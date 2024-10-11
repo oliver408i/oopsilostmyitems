@@ -6,7 +6,7 @@
       Navbar
     </div>
     <div class="createButton">
-      <a href="/create">
+      <a href="/tpl/create">
         <button>Create Item</button>
       </a>
     </div>

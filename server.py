@@ -11,10 +11,6 @@ database = json.load(open('./database.json'))
 def index():
     return bottle.template('index.stpl', data=database)
 
-@app.route('/create')
-def create():
-    return bottle.template('create.stpl')
-
 @app.route('/devpage')
 def devpage():
     return bottle.static_file('devpage.html', root='./static')
@@ -34,10 +30,36 @@ def serve_by_uuid(uuid):
         return bottle.abort(404, "Item not found")
     return bottle.template("itemCardView.stpl",name=item, data=database[item])
 
-# to be removed
-@app.route('/tpl/itemview/<item>/', method='GET')
-def itemview(item):
+@app.route('/tpl/itemview/<item>', method='GET')
+def itemview(item):    
+    if item not in database:
+        return bottle.abort(404, "Item not found")
     return bottle.template("itemCardView.stpl",name=item, data=database[item])
+
+@app.route('/tpl/itemviewuuid/<uuid>', method='GET')
+def itemviewuuid(uuid):
+    item = su.find_item_by_uuid(database, uuid)
+    if item is None:
+        return bottle.abort(404, "Item not found")
+    return bottle.template("itemCardView.stpl",name=item, data=database[item])
+
+@app.route('/tpl/itemUpdate/<uuid>', method='GET')
+def itemUpdate(uuid):
+    item = su.find_item_by_uuid(database, uuid)
+    if item is None:
+        return bottle.abort(404, "Item not found")
+    return bottle.template("itemUpdate.stpl",name=item, data=database[item])
+
+@app.route('/tpl/imageUpload/<uuid>', method='GET')
+def imageUpload(uuid):
+    item = su.find_item_by_uuid(database, uuid)
+    if item is None:
+        return bottle.abort(404, "Item not found")
+    return bottle.template("imageUpload.stpl",name=item, data=database[item])
+
+@app.route('/tpl/create')
+def create():
+    return bottle.template('create.stpl')
 
 @app.route('/api/item/<item>/get', method='GET')
 def item(item):
@@ -65,11 +87,11 @@ def update(item):
         return bottle.HTTPResponse("Invalid JSON", status=400)
     if not arc:
         return bottle.HTTPResponse("No JSON data", status=400)
-    if 'description' in arc:
+    if 'description' in arc and arc['description']:
         database[item]['description'] = arc['description']
-    if 'amount' in arc:
+    if 'amount' in arc and arc['amount']:
         database[item]['amount'] = arc['amount']
-    if 'name' in arc:
+    if 'name' in arc and arc['name']:
         database[item]['name'] = arc['name']
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(status=204)

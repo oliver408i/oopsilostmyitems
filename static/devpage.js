@@ -10,7 +10,7 @@ getForm.addEventListener("submit", (event) => {
     })
     .then((response) => {
         if (response.status === 200) {
-            resultFrame.src = '/tpl/itemview/'+ getForm.name.value + '/';
+            resultFrame.src = '/tpl/itemview/'+ getForm.name.value;
             return response.json();
         } else {
             return {

@@ -63,7 +63,7 @@
                             }
                         })
                     }
-                    window.location.href = "/tpl/itemview/" + createForm.name.value +"/";
+                    window.location.href = "/tpl/itemview/" + createForm.name.value;
                 })
             })
         });

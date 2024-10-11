@@ -5,9 +5,18 @@
     <hr>
     <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
     <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
-    <form style="display: flex; justify-content: center;" id="deleteForm">
-        <button style="--button-hover: red;" type="submit">Delete</button>
-    </form>
+
+    <div style="display: flex; justify-content: center; margin-top: 100px">
+        <form id="updateForm" action="/tpl/itemUpdate/{{data['uuid']}}">
+            <button style="--button-hover: green;" type="submit">Update</button>
+        </form>
+        <form id="uploadImage" action="/tpl/imageUpload/{{data['uuid']}}">
+            <button style="--button-hover: cyan;" type="submit">Upload Image</button>
+        </form>
+        <form id="deleteForm">
+            <button style="--button-hover: red;" type="submit">Delete</button>
+        </form>
+    </div>
 
     <script>
         const form = document.getElementById("deleteForm");
