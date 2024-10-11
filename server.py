@@ -11,6 +11,10 @@ database = json.load(open('./database.json'))
 def index():
     return bottle.template('index.stpl', data=database)
 
+@app.route('/create')
+def create():
+    return bottle.template('create.stpl')
+
 @app.route('/devpage')
 def devpage():
     return bottle.static_file('devpage.html', root='./static')

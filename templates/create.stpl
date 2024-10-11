@@ -1,0 +1,61 @@
+% include("header.stpl")
+
+<body>
+    <h1>Create Item</h1>
+    <form id="createForm">
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="some item" />
+        <label for="description">Description</label>
+        <input type="text" name="description" placeholder="some description" />
+        <label for="image">Initial image</label>
+        <input type="file" name="image" />
+        <label for="amount">Initial amount</label>
+        <input type="number" name="amount" placeholder="0" />
+        <button type="submit">Create</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("createForm");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            fetch("/api/item/" + createForm.name.value + "/update", {
+                method: "POST"
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return
+                } else {
+                    alert("Error: " + response.statusText);
+                    return Promise.reject();
+                }
+            }).then(() => {
+                fetch("/api/item/" + createForm.name.value + "/update", {
+                    method: "POST",
+                    body: JSON.stringify({"description": formData.get("description"), "amount": formData.get("amount")})
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return
+                    } else {
+                        alert("Error: " + response.statusText);
+                        return Promise.reject();
+                    }
+                }).then(() => {
+                    fetch("/api/item/" + createForm.name.value + "/image", {
+                        method: "PUT",
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return
+                        } else {
+                            alert("Error: " + response.statusText);
+                            return Promise.reject();
+                        }
+                    })
+                })
+            })
+        });
+    </script>
+</body>
