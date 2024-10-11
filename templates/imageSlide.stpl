@@ -15,7 +15,7 @@
     <p id="timestamp" style="display: flex; justify-content: center; font-size: small; margin-top: 5px;"></p>
 </div>
 % else:
-<p>No images available</p>
+<p style="display: flex; justify-content: center;">No images available</p>
 % end
 <p id="desc" style="display:none;">{{data['description'] if 'description' in data else 'None'}}</p>
 % if 'description' in data and data['description']:

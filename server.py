@@ -45,13 +45,20 @@ def item(item):
         return bottle.abort(404, "Item not found")
     return database[item]
 
+@app.put('/api/item/<item>/create')
+def create(item):
+    global database
+    if item in database:
+        return bottle.abort(409, "Item already exists")
+    database[item] = {"name": item, "uuid": su.generate_id(), "description": None, "images": {}, "amount": 0}
+    json.dump(database, open('./database.json', 'w'))
+    return bottle.HTTPResponse("Item created", status=201)
+
 @app.post('/api/item/<item>/update')
 def update(item):
     global database
     if item not in database:
-        database[item] = {"name": item, "uuid": su.generate_id(), "description": None, "images": {}, "amount": 0}
-        json.dump(database, open('./database.json', 'w'))
-        return bottle.HTTPResponse("Item created", status=201)
+        return bottle.abort(404, "Item not found")
     try:
         arc = bottle.request.json
     except ValueError:

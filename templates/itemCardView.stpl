@@ -1,8 +1,28 @@
 % include("header.stpl")
-<body>
+<body data-name="{{name}}">
     <h1 style="display: flex; justify-content: center;">{{name}}</h1>
     % include("imageSlide.stpl", data=data)
     <hr>
     <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
     <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
+    <form style="display: flex; justify-content: center;" id="deleteForm">
+        <button style="--button-hover: red;" type="submit">Delete</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("deleteForm");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            fetch("/api/item/" + document.body.dataset.name + "/delete", {
+                method: 'DELETE'
+            })
+            .then((response) => {
+                if (response.ok) {
+                    window.location.href = "/";
+                } else {
+                    alert("Error: " + response.statusText);
+                }
+            })
+        });
+    </script>
 </body>

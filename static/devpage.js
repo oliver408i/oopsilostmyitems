@@ -53,8 +53,8 @@ createForm.addEventListener("submit", (event) => {
         result.innerHTML = "Error: name cannot be empty";
         return;
     }
-    fetch("/api/item/" + createForm.name.value + "/update", {
-        method: "POST"
+    fetch("/api/item/" + createForm.name.value + "/create", {
+        method: "PUT"
     })
     .then((response) => {
         if (response.status === 200 || response.status === 201) {

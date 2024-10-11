@@ -19,19 +19,26 @@
         form.addEventListener("submit", (event) => {
             event.preventDefault();
             const formData = new FormData(form);
-            fetch("/api/item/" + createForm.name.value + "/update", {
-                method: "POST"
+            fetch("/api/item/" + createForm.name.value + "/create", {
+                method: "PUT"
             })
             .then((response) => {
                 if (response.ok) {
                     return
                 } else {
+                    if (response.status === 409) {
+                        alert("Error: item already exists");
+                        return Promise.reject();
+                    }
                     alert("Error: " + response.statusText);
                     return Promise.reject();
                 }
             }).then(() => {
                 fetch("/api/item/" + createForm.name.value + "/update", {
                     method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({"description": formData.get("description"), "amount": formData.get("amount")})
                 })
                 .then(response => {
@@ -42,18 +49,21 @@
                         return Promise.reject();
                     }
                 }).then(() => {
-                    fetch("/api/item/" + createForm.name.value + "/image", {
+                    if (formData.get("image")) {
+                        fetch("/api/item/" + createForm.name.value + "/image", {
                         method: "PUT",
                         body: formData
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            return
-                        } else {
-                            alert("Error: " + response.statusText);
-                            return Promise.reject();
-                        }
-                    })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                return
+                            } else {
+                                alert("Error: " + response.statusText);
+                                return Promise.reject();
+                            }
+                        })
+                    }
+                    window.location.href = "/tpl/itemview/" + createForm.name.value +"/";
                 })
             })
         });
