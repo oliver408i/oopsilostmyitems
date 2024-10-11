@@ -1,0 +1,39 @@
+% include("header.stpl", hideHomepage=True)
+
+<body>
+    <div class="container">
+        <div class="loginForm">
+            <form id="registerForm">
+                <p>Register</p>
+                <label for="username">Username: </label>
+                <input type="text" name="username" placeholder="username" required/>
+                <label for="password">Password: </label>
+                <input type="password" name="password" placeholder="password" required/>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+
+    <script>
+        const form = document.getElementById("registerForm");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            fetch("/api/users/"+formData.get("username"), {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({"password": formData.get("password")})
+            })
+            .then((response) => {
+                if (response.ok) {
+                    window.location.href = "/login";
+                } else {
+                    alert("Error: " + response.statusText);
+                }
+            });
+        });
+    </script>
+</body>

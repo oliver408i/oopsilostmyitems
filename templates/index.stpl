@@ -10,6 +10,9 @@
         <button>Create Item</button>
       </a>
     </div>
+    <div class="account">
+      <button id="logout">Logout</button>
+    </div>
     <div id="content">
       % for item in data:
         <button class="card" id="{{data[item]['uuid']}}">
@@ -24,4 +27,13 @@
       %end
     </div>
   </div>
+
+  <script>
+    const logoutButton = document.getElementById("logout");
+    logoutButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      window.location.reload();
+    });
+  </script>
 </body>

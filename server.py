@@ -1,6 +1,8 @@
 import bottle, json, uuid, os, time
 import bottle.ext.websocket as bws # type: ignore
-import serverutils as su
+import serverutils as su, securelogin as sl
+
+SERVER_SECRET = os.environ.get('SERVER_SECRET') or uuid.uuid4().hex
 
 app = bottle.Bottle()
 bottle.TEMPLATE_PATH = ['./templates']
@@ -9,7 +11,18 @@ database = json.load(open('./database.json'))
 
 @app.route('/')
 def index():
+    if not bottle.request.get_cookie('token'):
+        print('no cookie')
+        return bottle.redirect('/login')
     return bottle.template('index.stpl', data=database)
+
+@app.route('/login')
+def loginView():
+    return bottle.template('login.stpl')
+
+@app.route('/register')
+def registerView():
+    return bottle.template('register.stpl')
 
 @app.route('/devpage')
 def devpage():
@@ -131,6 +144,43 @@ def get_image(uuid):
             return bottle.static_file(file, root='./images/')
     return bottle.abort(404, "Image not found")
 
+@app.post('/api/login')
+def login():
+    try:
+        arc = bottle.request.json
+    except ValueError:
+        return bottle.HTTPResponse("Invalid JSON", status=400)
+    if not arc:
+        return bottle.HTTPResponse("No JSON data", status=400)
+
+    if not 'username' in arc or not 'password' in arc:
+        return bottle.HTTPResponse("No username or password provided", status=400)
+    
+    if not arc['username'] or not arc['password']:
+        return bottle.HTTPResponse("No username or password provided", status=400)
+    
+    if not sl.check_password_against_db(arc['username'], arc['password']):
+        return bottle.HTTPResponse("Invalid username or password", status=401)
+    token = sl.generate_token(arc['username'])
+
+    bottle.response.set_cookie('token', token, secret=SERVER_SECRET, path='/')
+
+    print(dict(bottle.response.headers))
+
+@app.put('/api/users/<user>')
+def register(user):
+    try:
+        arc = bottle.request.json
+    except ValueError:
+        return bottle.HTTPResponse("Invalid JSON", status=400)
+    if not arc:
+        return bottle.HTTPResponse("No JSON data", status=400)
+    
+    if 'password' in arc and arc['password']:
+        sl.register(user, arc['password'])
+        return bottle.HTTPResponse(status=201)
+    else:
+        return bottle.HTTPResponse("No password provided", status=400)
 
 @app.route('/api/item/all', method='GET')
 def all():
