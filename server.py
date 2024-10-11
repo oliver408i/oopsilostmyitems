@@ -12,7 +12,6 @@ database = json.load(open('./database.json'))
 @app.route('/')
 def index():
     if not bottle.request.get_cookie('token'):
-        print('no cookie')
         return bottle.redirect('/login')
     return bottle.template('index.stpl', data=database)
 
@@ -82,6 +81,8 @@ def item(item):
 
 @app.put('/api/item/<item>/create')
 def create(item):
+    if not sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET):
+        return bottle.abort(401, "Unauthorized")
     global database
     if item in database:
         return bottle.abort(409, "Item already exists")
@@ -91,6 +92,8 @@ def create(item):
 
 @app.post('/api/item/<item>/update')
 def update(item):
+    if not sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET):
+        return bottle.abort(401, "Unauthorized")
     global database
     if item not in database:
         return bottle.abort(404, "Item not found")
@@ -111,6 +114,8 @@ def update(item):
 
 @app.route('/api/item/<item>/delete', method='DELETE')
 def delete(item):
+    if not sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET):
+        return bottle.abort(401, "Unauthorized")
     global database
     if item in database:
         images = database[item]['images']
@@ -161,11 +166,9 @@ def login():
     
     if not sl.check_password_against_db(arc['username'], arc['password']):
         return bottle.HTTPResponse("Invalid username or password", status=401)
-    token = sl.generate_token(arc['username'])
+    token = sl.generate_token(arc['username'], SERVER_SECRET)
 
-    bottle.response.set_cookie('token', token, secret=SERVER_SECRET, path='/')
-
-    print(dict(bottle.response.headers))
+    bottle.response.set_cookie('token', token, path='/')
 
 @app.put('/api/users/<user>')
 def register(user):

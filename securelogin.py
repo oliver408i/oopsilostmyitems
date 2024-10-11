@@ -1,13 +1,17 @@
 import bcrypt, json, jwt, time
 
-def generate_token(username):
-    token = jwt.encode({'username': username, 'exp': time.time() + 3600}, 'secret', algorithm='HS256')
+def generate_token(username, secret):
+    token = jwt.encode({'username': username, 'exp': time.time() + 3600}, secret, algorithm='HS256')
     return token
 
 def decode_token(token, secret):
+    if not token:
+        return None
     try:
         username = jwt.decode(token, secret, algorithms=['HS256'])['username']
-    except (jwt.InvalidTokenError, jwt.ExpiredSignatureError):
+    except (jwt.InvalidTokenError, jwt.ExpiredSignatureError) as e:
+        print(token)
+        print("Invalid token:", e)
         return None
     return username
 
