@@ -48,14 +48,14 @@ def itemUpdate(uuid):
     item = su.find_item_by_uuid(database, uuid)
     if item is None:
         return bottle.abort(404, "Item not found")
-    return bottle.template("itemUpdate.stpl",name=item, data=database[item])
+    return bottle.template("itemUpdate.stpl",name=item)
 
 @app.route('/tpl/imageUpload/<uuid>', method='GET')
 def imageUpload(uuid):
     item = su.find_item_by_uuid(database, uuid)
     if item is None:
         return bottle.abort(404, "Item not found")
-    return bottle.template("imageUpload.stpl",name=item, data=database[item])
+    return bottle.template("imageUpload.stpl",name=item)
 
 @app.route('/tpl/create')
 def create():

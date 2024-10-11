@@ -4,7 +4,7 @@
     <h1>Create Item</h1>
     <form id="createForm">
         <label for="name">Name</label>
-        <input type="text" name="name" placeholder="some item" />
+        <input type="text" name="name" placeholder="some item" required/>
         <label for="description">Description</label>
         <input type="text" name="description" placeholder="some description" />
         <label for="image">Initial image</label>

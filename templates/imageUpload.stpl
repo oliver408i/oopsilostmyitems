@@ -1,0 +1,30 @@
+% include("header.stpl")
+
+<body data-name="{{name}}">
+    <h1>Upload Image</h1>
+    <form id="uploadForm">
+        <label for="image">Image</label>
+        <input type="file" name="image" required />
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("uploadForm");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            formData.append("upload", uploadForm.image.files[0]);
+            fetch("/api/item/" + document.body.dataset.name + "/image", {
+                method: "PUT",
+                body: formData
+            })
+            .then((response) => {
+                if (response.ok) {
+                    window.location.href = "/tpl/itemview/" + document.body.dataset.name;
+                } else {
+                    alert("Error: " + response.statusText);
+                }
+            });
+        });
+    </script>
+</body>
