@@ -112,6 +112,65 @@ def update(item):
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(status=204)
 
+@app.route('/api/item/<item>/checkout', method='PUT')
+def checkout(item):
+    user = sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET)
+    if not user:
+        return bottle.abort(401, "Unauthorized")
+    
+    try:
+        arc = bottle.request.json
+    except ValueError:
+        return bottle.HTTPResponse("Invalid JSON", status=400)
+    if not arc:
+        return bottle.HTTPResponse("No JSON data", status=400)
+    global database
+    if item not in database:
+        return bottle.abort(404, "Item not found")
+    
+    if arc['amount'] > database[item]['amount']:
+        return bottle.abort(400, "Not enough stock")
+    id = su.generate_id()
+    database[item]['checkout'][id] = {"user": user, "timestamp": time.time(), "amount": arc['amount']}
+    database[item]['amount'] -= arc['amount']
+    json.dump(database, open('./database.json', 'w'))
+    return bottle.HTTPResponse(status=201)
+
+@app.route('/api/item/<item>/getcheckouts', method='GET')
+def get_checkouts(item):
+    user = sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET)
+    if not user:
+        return bottle.abort(401, "Unauthorized")
+    global database
+    if item not in database:
+        return bottle.abort(404, "Item not found")
+    return database[item]['checkout']
+
+@app.route('/api/item/<item>/return', method='PUT')
+def return_item(item):
+    user = sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET)
+    if not user:
+        return bottle.abort(401, "Unauthorized")
+    global database
+    if item not in database:
+        return bottle.abort(404, "Item not found")
+    
+    try:
+        arc = bottle.request.json
+    except ValueError:
+        return bottle.HTTPResponse("Invalid JSON", status=400)
+    if not arc:
+        return bottle.HTTPResponse("No JSON data", status=400)
+    
+    if not arc['id'] in database[item]['checkout']:
+        return bottle.abort(404, "Checkout not found")
+    
+    amt = database[item]['checkout'][arc['id']]['amount']
+    del database[item]['checkout'][arc['id']]
+    database[item]['amount'] += amt
+    json.dump(database, open('./database.json', 'w'))
+    return bottle.HTTPResponse(status=204)
+
 @app.route('/api/item/<item>/delete', method='DELETE')
 def delete(item):
     if not sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET):
