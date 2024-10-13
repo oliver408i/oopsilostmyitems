@@ -1,4 +1,4 @@
-% include("header.stpl")
+% include("header.stpl", showBack=True, hideHomepage=True)
 
 <body data-item="{{item}}">
     <h1>Checkout</h1>

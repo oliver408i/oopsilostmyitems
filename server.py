@@ -60,7 +60,7 @@ def itemUpdate(uuid):
     item = su.find_item_by_uuid(database, uuid)
     if item is None:
         return bottle.abort(404, "Item not found")
-    return bottle.template("itemUpdate.stpl",name=item)
+    return bottle.template("itemUpdate.stpl",name=item, data=database[item])
 
 @app.route('/tpl/imageUpload/<uuid>', method='GET')
 def imageUpload(uuid):
@@ -116,9 +116,13 @@ def update(item):
     if 'description' in arc and arc['description']:
         database[item]['description'] = arc['description']
     if 'amount' in arc and arc['amount']:
-        database[item]['amount'] = arc['amount']
+        database[item]['amount'] = int(arc['amount'])
     if 'name' in arc and arc['name']:
         database[item]['name'] = arc['name']
+        # rename the whole item dictionary
+        temp = database[item]
+        del database[item]
+        database[arc['name']] = temp
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(status=204)
 
@@ -211,6 +215,21 @@ def upload_image(item):
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(id, status=201)
 
+@app.route('/api/item/<item>/deleteimage/<id>', method="DELETE")
+def delete_image(item, id):
+    if not sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET):
+        return bottle.abort(401, "Unauthorized")
+    if id in database[item]['images']:
+        for file in os.listdir('./images/'):
+            if file.startswith(id):
+                os.remove('./images/' + file)
+                break
+        del database[item]['images'][id]
+        json.dump(database, open('./database.json', 'w'))
+        return bottle.HTTPResponse(status=204)
+    else:
+        return bottle.abort(404, "Image not found")
+
 @app.route('/api/images/<uuid>', method="GET")
 def get_image(uuid):
     for file in os.listdir('./images/'):
@@ -238,6 +257,13 @@ def login():
     token = sl.generate_token(arc['username'], SERVER_SECRET)
 
     bottle.response.set_cookie('token', token, path='/')
+
+@app.get('/api/checktoken')
+def checktoken():
+    user = sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET)
+    if not user:
+        return bottle.abort(401, "Unauthorized")
+    return bottle.HTTPResponse(user, status=200)
 
 @app.put('/api/users/<user>')
 def register(user):
