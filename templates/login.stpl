@@ -29,7 +29,6 @@
             })
             .then((response) => {
                 if (response.ok) {
-                    alert(window.cookies)
                     window.location.href = "/";
                 } else {
                     alert("Error: " + response.statusText);

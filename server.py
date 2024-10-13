@@ -73,6 +73,16 @@ def imageUpload(uuid):
 def create():
     return bottle.template('create.stpl')
 
+@app.route('/tpl/checkout/<uuid>', method='GET')
+def checkout_page(uuid):
+    user = sl.decode_token(bottle.request.get_cookie('token'), SERVER_SECRET)
+    if not user:
+        return bottle.abort(401, "Unauthorized")
+    item = su.find_item_by_uuid(database, uuid)
+    if item is None:
+        return bottle.abort(404, "Item not found")
+    return bottle.template("checkout.stpl",item=item, user=user, data=database[item])
+
 @app.route('/api/item/<item>/get', method='GET')
 def item(item):
     if item not in database:
@@ -128,11 +138,11 @@ def checkout(item):
     if item not in database:
         return bottle.abort(404, "Item not found")
     
-    if arc['amount'] > database[item]['amount']:
+    if int(arc['amount']) > database[item]['amount']:
         return bottle.abort(400, "Not enough stock")
     id = su.generate_id()
-    database[item]['checkout'][id] = {"user": user, "timestamp": time.time(), "amount": arc['amount']}
-    database[item]['amount'] -= arc['amount']
+    database[item]['checkouts'][id] = {"user": user, "timestamp": time.time(), "amount": int(arc['amount'])}
+    database[item]['amount'] -= int(arc['amount'])
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(status=201)
 
@@ -144,7 +154,7 @@ def get_checkouts(item):
     global database
     if item not in database:
         return bottle.abort(404, "Item not found")
-    return database[item]['checkout']
+    return database[item]['checkouts']
 
 @app.route('/api/item/<item>/return', method='PUT')
 def return_item(item):
@@ -162,11 +172,11 @@ def return_item(item):
     if not arc:
         return bottle.HTTPResponse("No JSON data", status=400)
     
-    if not arc['id'] in database[item]['checkout']:
+    if not arc['id'] in database[item]['checkouts']:
         return bottle.abort(404, "Checkout not found")
     
-    amt = database[item]['checkout'][arc['id']]['amount']
-    del database[item]['checkout'][arc['id']]
+    amt = database[item]['checkouts'][arc['id']]['amount']
+    del database[item]['checkouts'][arc['id']]
     database[item]['amount'] += amt
     json.dump(database, open('./database.json', 'w'))
     return bottle.HTTPResponse(status=204)

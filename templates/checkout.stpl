@@ -1,0 +1,79 @@
+% include("header.stpl")
+
+<body data-item="{{item}}">
+    <h1>Checkout</h1>
+    <form id="checkoutForm">
+        <p>You are checking out {{item}} as {{user}}</p>
+        <label for="amount">Amount: </label>
+        <input type="number" name="amount" placeholder="amount" required/>
+        <button type="submit">Checkout</button>
+    </form>
+
+    % if 'checkouts' in data:
+    % import time
+    <hr>
+    <h2>Your current checkouts on this item</h2>
+    <table>
+        <tr>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Action</th>
+        </tr>
+        % for checkout in data['checkouts']:
+            % checkoutData = data['checkouts'][checkout]
+            % if checkoutData['user'] == user:
+            <tr>
+                <td>{{checkoutData['amount']}}</td>
+                <td>{{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkoutData['timestamp']))}}</td>
+                <td><button type="button" class="return" data-id="{{checkout}}">Return</button></td>
+            </tr>
+            % end
+        % end
+    </table>
+    % end
+
+    <script>
+        const form = document.getElementById("checkoutForm");
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            fetch("/api/item/" + document.body.dataset.item + "/checkout", {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    amount: form.elements.amount.value
+                })
+            })
+            .then((response) => {
+                if (response.ok) {
+                    window.location.href = "/tpl/itemview/" + document.body.dataset.item;
+                } else {
+                    alert("Error: " + response.statusText);
+                }
+            })
+        });
+
+        const returnButtons = document.querySelectorAll(".return");
+        returnButtons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                fetch("/api/item/" + document.body.dataset.item + "/return", {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: button.dataset.id
+                    })
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        window.location.href = "/tpl/itemview/" + document.body.dataset.item;
+                    } else {
+                        alert("Error: " + response.statusText);
+                    }
+                })
+            });
+        });
+    </script>
+</body>

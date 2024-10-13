@@ -6,6 +6,27 @@
     <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
     <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
 
+    % if 'checkouts' in data:
+    % import time
+    <table style="width: 100%">
+        <tr>
+            <th>User</th>
+            <th>Checkout ID</th>
+            <th>Amount</th>
+            <th>Timestamp</th>
+        </tr>
+        % for checkout in data['checkouts']:
+            % checkoutData = data['checkouts'][checkout]
+            <tr>
+                <td>{{checkoutData['user']}}</td>
+                <td>{{checkout}}</td>
+                <td>{{checkoutData['amount']}}</td>
+                <td>{{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkoutData['timestamp']))}}</td>
+            </tr>
+        % end
+    </table>
+    % end
+
     <div style="display: flex; justify-content: center; margin-top: 100px">
         <form id="updateForm" action="/tpl/itemUpdate/{{data['uuid']}}">
             <button style="--button-hover: green;" type="submit">Update</button>
@@ -15,6 +36,9 @@
         </form>
         <form id="deleteForm">
             <button style="--button-hover: red;" type="submit">Delete</button>
+        </form>
+        <form id="checkoutForm" action="/tpl/checkout/{{data['uuid']}}">
+            <button style="--button-hover: yellow;" type="submit">Checkout</button>
         </form>
     </div>
 
