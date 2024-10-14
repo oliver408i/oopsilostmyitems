@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script>
-        if (document.cookie.indexOf('token=') === -1) {
+        if (document.cookie.indexOf('token=') === -1 && window.location.pathname != '/login') {
             window.location.href = '/login';
         }
         if (window.location.pathname != '/login') {
