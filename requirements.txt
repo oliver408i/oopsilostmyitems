@@ -1,5 +1,4 @@
 bottle
 bottle-websocket
 bcrypt
-jwt
 pyjwt
