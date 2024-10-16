@@ -1,0 +1,31 @@
+* {
+  color: var(--text-color);
+}
+
+html {
+  --primary: #6482AD;
+  --secondary: #7FA1C3;
+  --tertiary: #E2DAD6;
+  --quarternary: #F5EDED;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary);
+}
+
+input {
+  padding: 8px;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  background-color: inherit;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: var(--secondary);
+  border: 0;
+  border-radius: 4px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}

@@ -1,6 +1,6 @@
 import bottle, json, uuid, os, time
 import bottle.ext.websocket as bws # type: ignore
-import serverutils as su, securelogin as sl
+import utils as su, securelogin as sl
 
 SERVER_SECRET = os.environ.get('SERVER_SECRET') or uuid.uuid4().hex
 

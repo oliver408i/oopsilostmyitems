@@ -1,29 +1,30 @@
 <!DOCTYPE html>
+
 <head>
-    % if not defined('hideHomepage'):
-    <a href="/">Homepage</a>
-    % end
-    % if defined('showBack'):
-    <a href="javascript:history.back()">Back</a>
-    % end
+  % if not defined('hideHomepage'):
+  <a href="/">Homepage</a>
+  % end
+  % if defined('showBack'):
+  <a href="javascript:history.back()">Back</a>
+  % end
 
-    <link rel="stylesheet" href="/d1362b46-48db-407d-a9bb-3a87c8634aa6">
-    % if defined('additionalCss'):
-    <link rel="stylesheet" href="{{additionalCss}}">
-    % end
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/main.css">
+  % if defined('additionalCss'):
+  <link rel="stylesheet" href="{{additionalCss}}">
+  % end
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script>
-        if (document.cookie.indexOf('token=') === -1 && window.location.pathname != '/login' && window.location.pathname != '/register') {
+  <script>
+    if (document.cookie.indexOf('token=') === -1 && window.location.pathname != '/login' && window.location.pathname != '/register') {
+      window.location.href = '/login';
+    }
+    if (window.location.pathname != '/login' && window.location.pathname != '/register') {
+      fetch('/api/checktoken')
+        .then((response) => {
+          if (!response.ok) {
             window.location.href = '/login';
-        }
-        if (window.location.pathname != '/login' && window.location.pathname != '/register') {
-            fetch('/api/checktoken')
-                .then((response) => {
-                    if (!response.ok) {
-                        window.location.href = '/login';
-                    }
-                });
-        }
-    </script>
+          }
+        });
+    }
+  </script>
 </head>
