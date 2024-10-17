@@ -1,11 +1,11 @@
-%include('header.stpl', additionalCss="static/index.css", hideHomepage=True)
+%include('header.stpl', hideHomepage=True)
 
 <body>
   <div class="container">
-    <div class="navbar">
-      Navbar
+    <div id="top">
+      <h1>Item Catalogue</h1>
+      <div class="createButton">
     </div>
-    <div class="createButton">
       <a href="/tpl/create">
         <button>Create Item</button>
       </a>
@@ -13,7 +13,9 @@
     <div class="account">
       <button id="logout">Logout</button>
     </div>
-    <div id="content">
+    <div id="grid">
+      <div class="row">
+      </div>
       % for item in data:
         <button class="card" id="{{data[item]['uuid']}}">
           <a class="cardLink" href="/uuid/{{data[item]['uuid']}}">
