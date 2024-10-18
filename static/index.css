@@ -12,7 +12,7 @@
   flex: 1;
   flex-direction: row;
   align-items: center;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
 
 #content {
@@ -21,15 +21,22 @@
 
 #title {
   align-self: flex-start;
+  min-width: 250px;
 }
 
-#create,
+#create {
+  /* align-self: flex-end; */
+}
+
 #logout {
-  align-self: flex-end;
+  position: fixed;
+  margin-left:90%;
+  min-height: 50px;
+  min-width: 100px;
 }
 
 .row {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   display: flex;
   flex: 1;
   align-items: center;

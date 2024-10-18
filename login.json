@@ -1,8 +1,1 @@
-{
-    "test": {
-        "password": "$2b$12$G9tZc6WjK9pKS5NDi/Der.21l9txCIN8pLUx7kdTiQOASnAPBCKkK"
-    },
-    "ballsack": {
-        "password": "$2b$12$CxaaSrcdAq2cN0pI5HGs2ejlcM2AcYPnbyjzNmPTwBzKC5FZfd3su"
-    }
-}
+{"test": {"password": "$2b$12$G9tZc6WjK9pKS5NDi/Der.21l9txCIN8pLUx7kdTiQOASnAPBCKkK"}, "ballsack": {"password": "$2b$12$KKVc4fHgGeyovVTxL5YgvOHFK37i2Agjob3rPXXDUeRSeilcAf6zi"}}

@@ -1,4 +1,4 @@
-% include("header.stpl", hideHomepage=True)
+% include("header.stpl", additionalCss="./static/login.css",hideHomepage=True)
 
 <body>
     <div class="container">
