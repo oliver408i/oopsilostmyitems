@@ -1,71 +1,71 @@
 % include("header.stpl")
 
 <body>
-    <h1>Create Item</h1>
-    <form id="createForm">
-        <label for="name">Name</label>
-        <input type="text" name="name" placeholder="some item" required/>
-        <label for="description">Description</label>
-        <input type="text" name="description" placeholder="some description" />
-        <label for="image">Initial image</label>
-        <input type="file" name="image" />
-        <label for="amount">Initial amount</label>
-        <input type="number" name="amount" placeholder="0" />
-        <button type="submit">Create</button>
-    </form>
+  <h1>Create Item</h1>
+  <form id="createForm">
+    <label for="name">Name</label>
+    <input type="text" name="name" placeholder="some item" required />
+    <label for="description">Description</label>
+    <input type="text" name="description" placeholder="some description" />
+    <label for="image">Initial image</label>
+    <input type="file" name="image" />
+    <label for="amount">Initial amount</label>
+    <input type="number" name="amount" placeholder="0" />
+    <button type="submit">Create</button>
+  </form>
 
-    <script>
-        const form = document.getElementById("createForm");
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            fetch("/api/item/" + createForm.name.value + "/create", {
-                method: "PUT"
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return
-                } else {
-                    if (response.status === 409) {
-                        alert("Error: item already exists");
-                        return Promise.reject();
-                    }
-                    alert("Error: " + response.statusText);
-                    return Promise.reject();
-                }
+  <script>
+    const form = document.getElementById("createForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      fetch("/api/item/" + createForm.name.value + "/create", {
+        method: "PUT"
+      })
+        .then((response) => {
+          if (response.ok) {
+            return
+          } else {
+            if (response.status === 409) {
+              alert("Error: item already exists");
+              return Promise.reject();
+            }
+            alert("Error: " + response.statusText);
+            return Promise.reject();
+          }
+        }).then(() => {
+          fetch("/api/item/" + createForm.name.value + "/update", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({"description": formData.get("description"), "amount": formData.get("amount")})
+          })
+            .then(response => {
+              if (response.ok) {
+                return
+              } else {
+                alert("Error: " + response.statusText);
+                return Promise.reject();
+              }
             }).then(() => {
-                fetch("/api/item/" + createForm.name.value + "/update", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({"description": formData.get("description"), "amount": formData.get("amount")})
+              if (formData.get("image")) {
+                fetch("/api/item/" + createForm.name.value + "/image", {
+                  method: "PUT",
+                  body: formData
                 })
-                .then(response => {
+                  .then(response => {
                     if (response.ok) {
-                        return
+                      return
                     } else {
-                        alert("Error: " + response.statusText);
-                        return Promise.reject();
+                      alert("Error: " + response.statusText);
+                      return Promise.reject();
                     }
-                }).then(() => {
-                    if (formData.get("image")) {
-                        fetch("/api/item/" + createForm.name.value + "/image", {
-                        method: "PUT",
-                        body: formData
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                return
-                            } else {
-                                alert("Error: " + response.statusText);
-                                return Promise.reject();
-                            }
-                        })
-                    }
-                    window.location.href = "/tpl/itemview/" + createForm.name.value;
-                })
+                  })
+              }
+              window.location.href = "/tpl/itemview/" + createForm.name.value;
             })
-        });
-    </script>
+        })
+    });
+  </script>
 </body>
