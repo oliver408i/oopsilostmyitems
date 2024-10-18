@@ -1,4 +1,4 @@
-%include('header.stpl', additionalCss="/static/index.css", hideHomepage=True, showHomepageHeader=True)
+%include('header.stpl', additionalCss="/static/index.css")
 
 <body>
   

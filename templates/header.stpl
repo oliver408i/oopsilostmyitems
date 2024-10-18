@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-  % if not defined('hideHomepage'):
-  <a href="/">Homepage</a>
-  % end
+  
+  
   % if defined('showBack'):
   <a href="javascript:history.back()">Back</a>
   % end
@@ -27,14 +26,21 @@
         });
     }
   </script>
-% if defined('showHomepageHeader'):
+
+% if not defined('hideHomepage'):
 <div class="container">
   <div id="top">
-    <h1 id="title">Item Catalogue</h1>
+    <a href="/">
+      <h1 id="title" style="color: black; text-decoration: underline;">
+        Item Catalogue
+      </h1>
+    </a>
     <a id="create" href="/tpl/create">
-      <button>Create Item</button>
+      <button style="color: black;">Create Item</button>
     </a>
     <button id="logout">Logout</button>
   </div>
-  % end
+</div>
+% end
+
 </head>
