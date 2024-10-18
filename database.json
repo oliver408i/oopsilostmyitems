@@ -1,22 +1,4 @@
 {
-    "Motor": {
-        "name": "Motor",
-        "uuid": "08837470-7750-475e-b7a6-0258401a881c",
-        "description": null,
-        "images": {
-            "0e8102ea-9841-4bb7-8a33-e120691d5f47": {
-                "timestamp": 1728448019
-            },
-            "bd84554d-46f4-4ee0-b618-8f128aa643bf": {
-                "timestamp": 1728448072
-            },
-            "8d9fd008-b933-41d4-abed-673794aa3e9c": {
-                "timestamp": 1728448099
-            }
-        },
-        "amount": 0,
-        "checkouts": {}
-    },
     "Screws": {
         "name": "Screws",
         "uuid": "9e125c73-59b4-43d5-8295-10aafa78b85e",
@@ -58,5 +40,23 @@
                 "amount": 34
             }
         }
+    },
+    "Motor": {
+        "name": "Motor",
+        "uuid": "08837470-7750-475e-b7a6-0258401a881c",
+        "description": "",
+        "images": {
+            "0e8102ea-9841-4bb7-8a33-e120691d5f47": {
+                "timestamp": 1728448019
+            },
+            "bd84554d-46f4-4ee0-b618-8f128aa643bf": {
+                "timestamp": 1728448072
+            },
+            "8d9fd008-b933-41d4-abed-673794aa3e9c": {
+                "timestamp": 1728448099
+            }
+        },
+        "amount": 0,
+        "checkouts": {}
     }
 }
