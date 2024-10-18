@@ -14,15 +14,16 @@ database = json.load(open("./database.json"))
 def index():
     if not bottle.request.get_cookie("token"):
         return bottle.redirect("/login")
-    return bottle.template("index.stpl", data=database)
+    n = 5
+    items = [list(database.keys())[i : i + n] for i in range(0, len(database), n)]
+    return bottle.template("index.stpl", data=database, items=items)
 
 
 @app.route("/login")
 def loginView():
     # NOTE: the two lines below split database into rows of 5 for the grid layout
-    n = 5
-    items = [list(database.keys())[i : i + n] for i in range(0, len(database), n)]
-    return bottle.template("index.stpl", data=database, items=items)
+    
+    return bottle.template("login.stpl", data=database)
 
 
 @app.route("/register")

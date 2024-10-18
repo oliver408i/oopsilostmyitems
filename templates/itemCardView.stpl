@@ -1,5 +1,5 @@
 % include("header.stpl")
-<body data-name="{{name}}">
+<body data-name="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%">
     <h1 style="display: flex; justify-content: center;">{{name}}</h1>
     % include("imageSlide.stpl", data=data)
     <hr>
@@ -27,7 +27,7 @@
     </table>
     % end
 
-    <div style="display: flex; justify-content: center; margin-top: 100px">
+    <div style="display: flex; justify-content: center; margin-top: 100px; gap: 20px;">
         <form id="updateForm" action="/tpl/itemUpdate/{{data['uuid']}}">
             <button style="--button-hover: green;" type="submit">Update</button>
         </form>
