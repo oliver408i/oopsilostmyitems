@@ -36,8 +36,10 @@ a {
 div#content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center align cards */
-  gap: 20px; /* Add some space between cards */
+  justify-content: center;
+  /* Center align cards */
+  gap: 20px;
+  /* Add some space between cards */
 }
 
 .card {
@@ -50,7 +52,8 @@ div#content {
   height: 250px;
   display: inline-block;
   padding: 0px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   margin-top: 5px;
   margin-bottom: 5px;
   justify-content: center;
@@ -65,7 +68,8 @@ div#content {
   height: 260px;
   margin-top: 0px;
   margin-bottom: 0px;
-  margin-right: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 
