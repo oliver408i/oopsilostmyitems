@@ -1,12 +1,38 @@
 .container {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(1fr, 5);
+  grid-template-areas:
+    "header header header header header"
+    "items items items items items";
 }
 
-.grid {
-  display: grid;
-  grid-template-rows: repeat(1fr, 5);
+#top {
+  grid-area: header;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  border: 2px solid black;
+}
+
+#content {
+  grid-area: items;
+}
+
+#title {
+  align-self: flex-start;
+}
+
+#create,
+#logout {
+  align-self: flex-end;
+}
+
+.row {
+  border: 2px solid black;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: row;
+  padding: 16px 0px;
 }

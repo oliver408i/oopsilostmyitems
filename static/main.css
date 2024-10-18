@@ -43,6 +43,9 @@ a {
   height: 250px;
   display: inline-block;
   padding: 0px;
+  margin-right: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   justify-content: center;
   align-items: center;
   vertical-align: top;
@@ -53,6 +56,9 @@ a {
 .card:hover {
   width: 260px;
   height: 260px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 10px;
 }
 
 .cardLink {
