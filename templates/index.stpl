@@ -11,7 +11,7 @@
     </div>
     <div id="content">
       % for row in items:
-      <div class="row">
+      <div class="row" style="display:flex;justify-items: center; justify-content: center;">
         % for item in row:
         <button class="card" id="{{data[item]['uuid']}}">
           <a class="cardLink" href="/uuid/{{data[item]['uuid']}}">

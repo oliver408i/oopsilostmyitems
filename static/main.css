@@ -33,6 +33,13 @@ a {
   text-decoration: none;
 }
 
+div#content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center align cards */
+  gap: 20px; /* Add some space between cards */
+}
+
 .card {
   border: 2px solid var(--secondary);
   border-radius: 8px;
@@ -60,6 +67,8 @@ a {
   margin-bottom: 0px;
   margin-right: 10px;
 }
+
+
 
 .cardLink {
   display: inline-block;
