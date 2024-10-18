@@ -1,14 +1,7 @@
-%include('header.stpl', additionalCss="/static/index.css", hideHomepage=True)
+%include('header.stpl', additionalCss="/static/index.css", hideHomepage=True, showHomepageHeader=True)
 
 <body>
-  <div class="container">
-    <div id="top">
-      <h1 id="title">Item Catalogue</h1>
-      <a id="create" href="/tpl/create">
-        <button>Create Item</button>
-      </a>
-      <button id="logout">Logout</button>
-    </div>
+  
     <div id="content">
       % for row in items:
       <div class="row" style="display:flex;justify-items: center; justify-content: center;">

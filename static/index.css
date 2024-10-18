@@ -24,15 +24,23 @@
   min-width: 250px;
 }
 
-/* #create {
-   align-self: flex-end; 
-} */
-
 #logout, #create {
-  position: relative;
+  position: fixed;
+  height: 50px;
+  width: 100px;
+}
+
+#logout {
   margin-left:90%;
-  min-height: 50px;
-  min-width: 100px;
+}
+
+#create{
+  margin-left: 83%;
+}
+
+#create button{
+  height: 50px;
+  color: black;
 }
 
 .row {
