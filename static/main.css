@@ -28,6 +28,11 @@ button {
   border-radius: 4px;
 }
 
+button:hover {
+  transition: background-color 0.1s ease-in-out;
+  background-color: var(--tertiary);
+}
+
 a {
   color: #ffffff;
   text-decoration: none;
