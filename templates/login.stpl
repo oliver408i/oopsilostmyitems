@@ -13,7 +13,7 @@
         <br />
         <input type="password" name="password" placeholder="password" required />
         <br />
-        <button id="submitBtn" type="submit">Login</button>
+        <button style="margin-left: auto;" type="submit">Login</button>
       </form>
       <p>Don't have an account? <a href="/register">Register</a></p>
     </div>
