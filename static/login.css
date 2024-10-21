@@ -6,7 +6,26 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
   border: 2px solid var(--primary);
+  border-radius: 16px;
+  padding: 32px;
+  width: 20vw;
+}
+
+#submitBtn {
+  margin-top: 16px;
+}
+
+input {
+  width: 90%;
+}
+
+label {
+  font-weight: 900;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 a{

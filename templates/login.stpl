@@ -4,12 +4,16 @@
   <div class="container">
     <div class="content">
       <form id="loginForm">
-        <p>Login</p>
-        <label for="username">Username: </label>
+        <h1>Login</h1>
+        <label for="username">Username</label>
+        <br />
         <input type="text" name="username" placeholder="username" required />
-        <label for="password">Password: </label>
+        <br />
+        <label for="password">Password</label>
+        <br />
         <input type="password" name="password" placeholder="password" required />
-        <button type="submit">Login</button>
+        <br />
+        <button id="submitBtn" type="submit">Login</button>
       </form>
       <p>Don't have an account? <a href="/register">Register</a></p>
     </div>
