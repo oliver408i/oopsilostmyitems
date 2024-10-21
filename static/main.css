@@ -29,7 +29,7 @@ button {
 }
 
 button:hover {
-  transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
   background-color: var(--tertiary);
 }
 
@@ -64,17 +64,19 @@ div#content {
   justify-content: center;
   align-items: center;
   vertical-align: top;
-  transition-duration: 0.1s;
-  transition-timing-function: ease-in;
+  transition-duration: 0.3s;
+  transition-timing-function:ease-in;
 }
 
 .card:hover {
+  
   width: 260px;
   height: 260px;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-right: 5px;
   margin-left: 5px;
+
 }
 
 
