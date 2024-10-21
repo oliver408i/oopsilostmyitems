@@ -10,6 +10,7 @@ html {
   --secondary: #7FA1C3;
   --tertiary: #E2DAD6;
   --quarternary: #F5EDED;
+  --link-color: #0482AD;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
 }
@@ -34,8 +35,12 @@ button:hover {
 }
 
 a {
-  color: #ffffff;
+  color: var(--link-color);
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 div#content {
