@@ -3,6 +3,7 @@
   display: 1;
   align-items: center;
   justify-content: center;
+  height: 90vh;
 }
 
 .content {
@@ -14,16 +15,15 @@
   width: 20vw;
 }
 
-#submitBtn {
-  margin-top: 16px;
-}
-
 input {
   width: 90%;
+  margin-bottom: 16px;
 }
 
 label {
-  font-weight: 900;
-  margin-top: 16px;
-  margin-bottom: 8px;
+  font-weight: 727;
+}
+
+h1 {
+  font-size: 1.5em;
 }
