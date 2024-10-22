@@ -29,10 +29,12 @@ button {
   border-radius: 4px;
 }
 
-button:hover {
+/* button:hover {
   transition: background-color 0.3s ease-in-out;
   background-color: var(--tertiary);
-}
+} */ 
+ 
+/* TODO: this stabs the normal card hover animation */
 
 a {
   color: var(--link-color);
@@ -58,6 +60,7 @@ div#content {
   background-color: white;
   color: black;
   text-decoration: none;
+  transition: all 0.5s ease;
   width: 250px;
   height: 250px;
   display: inline-block;
@@ -69,8 +72,6 @@ div#content {
   justify-content: center;
   align-items: center;
   vertical-align: top;
-  transition-duration: 0.3s;
-  transition-timing-function:ease-in;
 }
 
 .card:hover {
@@ -83,6 +84,8 @@ div#content {
   margin-left: 5px;
 
 }
+
+
 
 
 
