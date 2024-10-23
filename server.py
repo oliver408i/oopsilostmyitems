@@ -121,6 +121,7 @@ def create(item):
         "description": None,
         "images": {},
         "amount": 0,
+        "checkouts": {}
     }
     json.dump(database, open("./database.json", "w"))
     return bottle.HTTPResponse("Item created", status=201)
