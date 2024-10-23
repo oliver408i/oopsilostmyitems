@@ -1,5 +1,4 @@
 import bottle, json, uuid, os, time
-import bottle.ext.websocket as bws  # type: ignore
 import utils as su, securelogin as sl
 
 SERVER_SECRET = os.environ.get("SERVER_SECRET") or uuid.uuid4().hex
@@ -132,6 +131,7 @@ def create(item):
         "description": None,
         "images": {},
         "amount": 0,
+        "checkouts": {}
     }
     json.dump(database, open("./database.json", "w"))
     return bottle.HTTPResponse("Item created", status=201)
@@ -340,4 +340,4 @@ def all():
     return json.dumps({"items": list(database.keys())})
 
 
-app.run(server=bws.GeventWebSocketServer)
+app.run()

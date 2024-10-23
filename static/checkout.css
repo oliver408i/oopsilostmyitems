@@ -1,5 +1,10 @@
 #checkouttable {
   border: 2px solid black;
   border-radius: 16px;
-  padding: 16px;
+  padding: 4px;
+  width: 100%;
+}
+
+tr:nth-child(even) {
+  background-color: lightgray;
 }

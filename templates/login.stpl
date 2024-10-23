@@ -21,6 +21,14 @@
 
   <script>
 
+    fetch("/api/checktoken").then((response) => {
+      if (response.ok) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const goto = urlParams.get("goto");
+        window.location.href = goto ? decodeURIComponent(goto) : "/";
+      }
+    });
+
     const form = document.getElementById("loginForm");
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -34,7 +42,9 @@
       })
         .then((response) => {
           if (response.ok) {
-            window.location.href = "/";
+            const urlParams = new URLSearchParams(window.location.search);
+            const goto = urlParams.get("goto");
+            window.location.href = goto ? decodeURIComponent(goto) : "/";
           } else {
             alert("Error: " + response.statusText);
           }

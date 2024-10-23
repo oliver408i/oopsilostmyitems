@@ -21,7 +21,7 @@
       fetch('/api/checktoken')
         .then((response) => {
           if (!response.ok) {
-            window.location.href = '/login';
+            window.location.href = '/login?goto='+window.location.pathname;
           }
         });
     }
@@ -36,9 +36,12 @@
         </h1>
       </a>
       % if not defined ('hideCreate'):
-        <a id="create" href="/tpl/create">
-          <button style="color: white;">Create Item</button>
-        </a>
+      <a id="create" href="/tpl/create">
+        <button style="color: white;">Create Item</button>
+      </a>
+      <a id="create" href="/tpl/create">
+        <button style="color: black;">Create Item</button>
+      </a>
       %end
       <button id="logout" style="color:white;">Logout</button>
     </div>
