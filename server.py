@@ -227,7 +227,10 @@ def delete(item):
     if item in database:
         images = database[item]["images"]
         for image in images:
-            os.remove("./images/" + image)
+            for file in os.listdir("./images/"):
+                if file.startswith(image):
+                    os.remove("./images/" + file)
+                    break
         del database[item]
         json.dump(database, open("./database.json", "w"))
         return bottle.HTTPResponse(status=204)
