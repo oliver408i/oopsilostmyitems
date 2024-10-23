@@ -71,10 +71,10 @@ div#content {
   justify-content: center;
   align-items: center;
   vertical-align: top;
-  <<<<<<< HEAD=======transition-duration: 0.3s;
+  transition-duration: 0.2s;
   transition-timing-function: ease-in;
-  >>>>>>>cc8df40 (register + login css)
 }
+
 
 .card:hover {
   width: 260px;
@@ -83,11 +83,8 @@ div#content {
   margin-bottom: 0px;
   margin-right: 5px;
   margin-left: 5px;
+  background: white;
 }
-
-
-
-
 
 .cardLink {
   display: inline-block;
