@@ -39,7 +39,7 @@
       <button type="submit">Delete</button>
     </form>
     <form id="checkoutForm" action="/tpl/checkout/{{data['uuid']}}">
-      <button type="submit">Checkout</button>
+      <button type="submit">Checkout/Return</button>
     </form>
   </div>
 

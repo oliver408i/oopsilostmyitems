@@ -100,6 +100,17 @@ def checkout_page(uuid):
         return bottle.abort(404, "Item not found")
     return bottle.template("checkout.stpl", item=item, user=user, data=database[item])
 
+@app.route("/tpl/item/<item>/<checkoutid>/returnpage", method="GET")
+def return_item(item, checkoutid):
+    user = sl.decode_token(bottle.request.get_cookie("token"), SERVER_SECRET)
+    if not user:
+        return bottle.abort(401, "Unauthorized")
+    global database
+    if item not in database:
+        return bottle.abort(404, "Item not found")
+    return bottle.template("return.stpl", item=item, checkoutid=checkoutid)
+    
+
 
 @app.route("/api/item/<item>/get", method="GET")
 def item(item):

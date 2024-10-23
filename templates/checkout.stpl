@@ -57,22 +57,7 @@
     const returnButtons = document.querySelectorAll(".return");
     returnButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        fetch("/api/item/" + document.body.dataset.item + "/return", {
-          method: 'PUT',
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: button.dataset.id
-          })
-        })
-          .then((response) => {
-            if (response.ok) {
-              window.location.href = "/tpl/itemview/" + document.body.dataset.item;
-            } else {
-              alert("Error: " + response.statusText);
-            }
-          })
+        window.location.href = "/tpl/item/" + document.body.dataset.item + "/"+button.dataset.id+"/returnpage";
       });
     });
   </script>
