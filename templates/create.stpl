@@ -1,6 +1,6 @@
 % include("header.stpl", hideCreate=False)
 
-<body>
+<body style="max-width: 1000px;padding-left:25%;padding-right:25%">
   <h1>Create Item</h1>
   <form id="createForm">
     <label for="name">Name</label>
