@@ -1,39 +1,44 @@
 % include("header.stpl", additionalCss="./static/login.css",hideHomepage=True)
 
 <body>
-    <div class="container">
-        <div class="loginForm">
-            <form id="registerForm">
-                <p>Register</p>
-                <label for="username">Username: </label>
-                <input type="text" name="username" placeholder="username" required/>
-                <label for="password">Password: </label>
-                <input type="password" name="password" placeholder="password" required/>
-                <button type="submit">Register</button>
-            </form>
-        </div>
-        <p>Already have an account? <a href="/login">Login</a></p>
+  <div class="container">
+    <div class="content">
+      <form id="loginForm">
+        <h1>Register</h1>
+        <label for="username">Username</label>
+        <br />
+        <input type="text" name="username" placeholder="username" required />
+        <br />
+        <label for="password">Password</label>
+        <br />
+        <input type="password" name="password" placeholder="password" required />
+        <br />
+        <button style="margin-left: auto;" type="submit">Login</button>
+      </form>
+      <p>Already have an account? <a href="/login">Login</a></p>
     </div>
 
-    <script>
-        const form = document.getElementById("registerForm");
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            fetch("/api/users/"+formData.get("username"), {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({"password": formData.get("password")})
-            })
-            .then((response) => {
-                if (response.ok) {
-                    window.location.href = "/login";
-                } else {
-                    alert("Error: " + response.statusText);
-                }
-            });
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      fetch("/api/users/" + formData.get("username"), {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({"password": formData.get("password")})
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "/login";
+          } else {
+            alert("Error: " + response.statusText);
+          }
         });
-    </script>
+    });
+  </script>
 </body>
