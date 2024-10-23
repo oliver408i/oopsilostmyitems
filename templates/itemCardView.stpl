@@ -1,61 +1,62 @@
 % include("header.stpl")
+
 <body data-name="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%">
-    <h1 style="display: flex; justify-content: center;">{{name}}</h1>
-    % include("imageSlide.stpl", data=data)
-    <hr>
-    <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
-    <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
+  <h1 style="display: flex; justify-content: center;">{{name}}</h1>
+  % include("imageSlide.stpl", data=data)
+  <hr>
+  <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
+  <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
 
-    % if 'checkouts' in data:
-    % import time
-    <table style="width: 100%">
-        <tr>
-            <th>User</th>
-            <th>Checkout ID</th>
-            <th>Amount</th>
-            <th>Timestamp</th>
-        </tr>
-        % for checkout in data['checkouts']:
-            % checkoutData = data['checkouts'][checkout]
-            <tr>
-                <td>{{checkoutData['user']}}</td>
-                <td>{{checkout}}</td>
-                <td>{{checkoutData['amount']}}</td>
-                <td>{{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkoutData['timestamp']))}}</td>
-            </tr>
-        % end
-    </table>
+  % if 'checkouts' in data:
+  % import time
+  <table style="width: 100%">
+    <tr>
+      <th>User</th>
+      <th>Checkout ID</th>
+      <th>Amount</th>
+      <th>Timestamp</th>
+    </tr>
+    % for checkout in data['checkouts']:
+    % checkoutData = data['checkouts'][checkout]
+    <tr>
+      <td>{{checkoutData['user']}}</td>
+      <td>{{checkout}}</td>
+      <td>{{checkoutData['amount']}}</td>
+      <td>{{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkoutData['timestamp']))}}</td>
+    </tr>
     % end
+  </table>
+  % end
 
-    <div style="display: flex; justify-content: center; margin-top: 100px; gap: 20px;">
-        <form id="updateForm" action="/tpl/itemUpdate/{{data['uuid']}}">
-            <button style="--button-hover: green;" type="submit">Update</button>
-        </form>
-        <form id="uploadImage" action="/tpl/imageUpload/{{data['uuid']}}">
-            <button style="--button-hover: cyan;" type="submit">Upload Image</button>
-        </form>
-        <form id="deleteForm">
-            <button style="--button-hover: red;" type="submit">Delete</button>
-        </form>
-        <form id="checkoutForm" action="/tpl/checkout/{{data['uuid']}}">
-            <button style="--button-hover: yellow;" type="submit">Checkout</button>
-        </form>
-    </div>
+  <div style="display: flex; justify-content: center; margin-top: 20px; gap: 20px;">
+    <form id="updateForm" action="/tpl/itemUpdate/{{data['uuid']}}">
+      <button type="submit">Update</button>
+    </form>
+    <form id="uploadImage" action="/tpl/imageUpload/{{data['uuid']}}">
+      <button type="submit">Upload Image</button>
+    </form>
+    <form id="deleteForm">
+      <button type="submit">Delete</button>
+    </form>
+    <form id="checkoutForm" action="/tpl/checkout/{{data['uuid']}}">
+      <button type="submit">Checkout</button>
+    </form>
+  </div>
 
-    <script>
-        const form = document.getElementById("deleteForm");
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            fetch("/api/item/" + document.body.dataset.name + "/delete", {
-                method: 'DELETE'
-            })
-            .then((response) => {
-                if (response.ok) {
-                    window.location.href = "/";
-                } else {
-                    alert("Error: " + response.statusText);
-                }
-            })
-        });
-    </script>
+  <script>
+    const form = document.getElementById("deleteForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      fetch("/api/item/" + document.body.dataset.name + "/delete", {
+        method: 'DELETE'
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "/";
+          } else {
+            alert("Error: " + response.statusText);
+          }
+        })
+    });
+  </script>
 </body>
