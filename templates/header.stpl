@@ -38,7 +38,7 @@
     <a id="create" href="/tpl/create">
       <button style="color: black;">Create Item</button>
     </a>
-    <button id="logout">Logout</button>
+    <button id="logout" style="color:black;">Logout</button>
   </div>
 </div>
 % end
