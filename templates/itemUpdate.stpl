@@ -64,7 +64,7 @@
             })
             .then((response) => {
                 if (response.ok) {
-                    window.location.href = "/tpl/itemview/" + document.body.dataset.item;
+                    window.location.href = "/tpl/itemview/" + formData.get("name");
                 } else {
                     alert("Error: " + response.statusText);
                 }

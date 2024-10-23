@@ -8,7 +8,7 @@
     <label for="description">Description</label>
     <input type="text" name="description" placeholder="some description" />
     <label for="image">Initial image</label>
-    <input type="file" name="image" />
+    <input type="file" name="upload" />
     <label for="amount">Initial amount</label>
     <input type="number" name="amount" placeholder="0" />
     <button type="submit">Create</button>
@@ -49,7 +49,7 @@
                 return Promise.reject();
               }
             }).then(() => {
-              if (formData.get("image")) {
+              if (formData.get("upload")) {
                 fetch("/api/item/" + createForm.name.value + "/image", {
                   method: "PUT",
                   body: formData
@@ -62,9 +62,8 @@
                       return Promise.reject();
                     }
                   })
-              } else {
-                alert("No image uploaded");
               }
+              alert("sus")
               window.location.href = "/tpl/itemview/" + createForm.name.value;
             })
         })
