@@ -5,7 +5,7 @@
   <form id="checkoutForm">
     <p>You are checking out {{item}} as {{user}}</p>
     <label for="amount">Amount: </label>
-    <input type="number" name="amount" placeholder="amount" min="1" required />
+    <input type="number" name="amount" placeholder="amount" min="1" max="{{data['amount']}}" required />
     <button type="submit">Checkout</button>
   </form>
 
