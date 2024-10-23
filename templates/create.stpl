@@ -68,7 +68,6 @@
                     }
                   })
               }
-              alert("Item created!")
               window.location.href = "/tpl/itemview/" + createForm.name.value;
             })
         })
