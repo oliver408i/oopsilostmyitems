@@ -1,15 +1,15 @@
 % include("header.stpl", showBack=True, hideHomepage=True)
 
-<body data-item="{{name}}">
+<body data-item="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%;">
     <h1>Update Item</h1>
     <form id="updateForm">
-        <label for="name">Name</label>
-        <input type="text" name="name" value="{{data['name']}}" required/>
-        <label for="description">Description</label>
-        <textarea name="description" rows="5" cols="20">{{data['description']}}</textarea>
-        <label for="amount">Amount (not checked out)</label>
-        <input type="number" name="amount" value="{{data['amount']}}" />
-        <button type="submit">Update</button>
+        <br><label for="name">Name</label>
+        <br><input type="text" name="name" value="{{data['name']}}" required/>
+        <br><label for="description">Description</label>
+        <br><textarea name="description" rows="5" cols="20">{{data['description']}}</textarea>
+        <br><label for="amount">Amount (not checked out)</label>
+        <br><input type="number" name="amount" value="{{data['amount']}}" />
+        <br><button type="submit">Update</button>
     </form>
 
     % if 'images' in data:
