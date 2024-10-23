@@ -1,18 +1,23 @@
 % include("header.stpl", hideCreate=False)
 
-<body style="max-width: 1000px;padding-left:25%;padding-right:25%">
+<body style="max-width: 1000px; padding-left: 25%; padding-right: 25%;"><hr>
   <h1>Create Item</h1>
   <form id="createForm">
-    <label for="name">Name</label>
-    <input type="text" name="name" placeholder="some item" required />
-    <label for="description">Description</label>
-    <input type="text" name="description" placeholder="some description" />
-    <label for="image">Initial image</label>
-    <input type="file" name="upload" />
-    <label for="amount">Initial amount</label>
-    <input type="number" name="amount" placeholder="0" />
+    <label for="name">Name</label><br>
+    <input type="text" name="name" placeholder="some item" required /><br><br>
+
+    <label for="description">Description</label><br>
+    <input type="text" name="description" placeholder="some description" /><br><br>
+
+    <label for="image">Initial Image</label><br>
+    <input type="file" name="upload" /><br><br>
+
+    <label for="amount">Initial Amount</label><br>
+    <input type="number" name="amount" placeholder="0" /><br><br>
+
     <button type="submit">Create</button>
   </form>
+</body>
 
   <script>
     const form = document.getElementById("createForm");
