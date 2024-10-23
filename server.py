@@ -1,5 +1,4 @@
 import bottle, json, uuid, os, time
-import bottle.ext.websocket as bws  # type: ignore
 import utils as su, securelogin as sl
 
 SERVER_SECRET = os.environ.get("SERVER_SECRET") or uuid.uuid4().hex
@@ -330,4 +329,4 @@ def all():
     return json.dumps({"items": list(database.keys())})
 
 
-app.run(server=bws.GeventWebSocketServer)
+app.run()
