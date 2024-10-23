@@ -35,9 +35,11 @@
           Item Catalogue
         </h1>
       </a>
-      <a id="create" href="/tpl/create">
-        <button style="color: black;">Create Item</button>
-      </a>
+      % if not defined ('hideCreate'):
+        <a id="create" href="/tpl/create">
+          <button style="color: black;">Create Item</button>
+        </a>
+      %end
       <button id="logout" style="color:black;">Logout</button>
     </div>
   </div>
