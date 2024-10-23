@@ -29,6 +29,7 @@ button {
   border: 0;
   border-radius: 4px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 button:hover {
@@ -53,7 +54,7 @@ div#content {
   /* Add some space between cards */
 }
 
-.card {
+.card,.card button{
   border: 2px solid var(--secondary);
   border-radius: 8px;
   background-color: white;
