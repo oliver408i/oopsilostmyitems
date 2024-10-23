@@ -1,4 +1,4 @@
-% include("header.stpl")
+% include("header.stpl", hideCreate=False)
 
 <body>
   <h1>Create Item</h1>

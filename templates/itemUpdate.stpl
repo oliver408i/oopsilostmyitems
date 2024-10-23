@@ -3,13 +3,36 @@
 <body data-item="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%;">
     <h1>Update Item</h1>
     <form id="updateForm">
-        <br><label for="name">Name</label>
-        <br><input type="text" name="name" value="{{data['name']}}" required/>
-        <br><label for="description">Description</label>
-        <br><textarea name="description" rows="5" cols="20">{{data['description']}}</textarea>
-        <br><label for="amount">Amount (not checked out)</label>
-        <br><input type="number" name="amount" value="{{data['amount']}}" />
-        <br><button type="submit">Update</button>
+        <style>
+            .styled-textarea {
+                width: 100%; /* Full width textarea */
+                max-width: 600px; /* Max width you desire */
+                height: 150px; /* Adjust height as needed */
+                padding: 10px; /* Add padding for comfort */
+                border: 1px solid #ccc; /* Light border */
+                border-radius: 5px; /* Rounded corners */
+                font-family: Arial, sans-serif; /* Font styling */
+                font-size: 14px; /* Font size */
+                resize: none; /* Disable resizing */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+                transition: border-color 0.3s, box-shadow 0.3s; /* Transition for focus effect */
+            }
+            
+            .styled-textarea:focus {
+                border-color: #66afe9; /* Change border color on focus */
+                box-shadow: 0 0 5px rgba(102,175,233,0.5); /* Highlight effect */
+                outline: none; /* Remove outline */
+            }
+        </style>
+
+
+        <br><br><label for="name">Name</label>
+        <br><br><input type="text" name="name" value="{{data['name']}}" required/>
+        <br><br><label for="description">Description</label>
+        <br><br><textarea name="description" class="styled-textarea" rows="5" cols="20">{{data['description']}}</textarea>
+        <br><br><label for="amount">Amount (not checked out)</label>
+        <br><br><input type="number" name="amount" value="{{data['amount']}}" />
+        <br><br><button type="submit">Update</button>
     </form>
 
     % if 'images' in data:
