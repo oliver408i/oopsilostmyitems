@@ -139,7 +139,7 @@ def update(item):
         return bottle.HTTPResponse("Invalid JSON", status=400)
     if not arc:
         return bottle.HTTPResponse("No JSON data", status=400)
-    if "description" in arc and arc["description"]:
+    if "description" in arc:
         database[item]["description"] = arc["description"]
     if "amount" in arc and arc["amount"]:
         database[item]["amount"] = int(arc["amount"])

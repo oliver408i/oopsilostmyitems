@@ -62,6 +62,8 @@
                       return Promise.reject();
                     }
                   })
+              } else {
+                alert("No image uploaded");
               }
               window.location.href = "/tpl/itemview/" + createForm.name.value;
             })
