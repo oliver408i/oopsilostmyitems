@@ -1,34 +1,34 @@
 %include('header.stpl', additionalCss="/static/index.css")
 
 <body>
-  
-    <div id="content">
-      % for row in items:
-      <div class="row" style="display:flex;justify-items: center; justify-content: center;">
-        % for item in row:
-        <button class="card" id="{{data[item]['uuid']}}">
-          <a class="cardLink" href="/uuid/{{data[item]['uuid']}}">
-            <h1>{{data[item]["name"]}}</h1>
-            % if data[item]["images"]:
-            <img src="/api/images/{{max(data[item]['images'], key=lambda i: data[item]['images'][i]['timestamp'])}}"
-              style="width: auto; height: 30%;">
-            % end
-            % if data[item]["description"].replace('\n', ''):
-              <p>
-                {{data[item]["description"]}}
-              </p>
-            % else:
-              <p style="color: lightskyblue; text-decoration: underline; text-decoration-color: lightcoral; font-size: smaller;">
-                No description available
-              </p>
-            % end
-          </a>
-        </button>
-        %end
 
-      </div>
+  <div id="content">
+    % for row in items:
+    <div class="row" style="display:flex;justify-items: center; justify-content: center;">
+      % for item in row:
+      <button class="card" id="{{data[item]['uuid']}}">
+        <a class="cardLink" href="/uuid/{{data[item]['uuid']}}">
+          <h1>{{data[item]["name"]}}</h1>
+          % if data[item]["images"]:
+          <img src="/api/images/{{max(data[item]['images'], key=lambda i: data[item]['images'][i]['timestamp'])}}"
+            style="width: auto; height: 30%;">
+          % end
+          % if data[item]["description"].replace('\n', ''):
+          <p>
+            {{data[item]["description"]}}
+          </p>
+          % else:
+          <p class="nodesc">
+            No description available
+          </p>
+          % end
+        </a>
+      </button>
       %end
+
     </div>
+    %end
+  </div>
   </div>
 
   <script>

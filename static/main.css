@@ -24,17 +24,16 @@ input {
 
 button {
   padding: 8px 12px;
-  background-color: var(--secondary);
+  background-color: var(--primary);
+  color: var(--quarternary);
   border: 0;
   border-radius: 4px;
+  font-weight: 600;
 }
 
-/* button:hover {
-  transition: background-color 0.3s ease-in-out;
-  background-color: var(--tertiary);
-} */ 
- 
-/* TODO: this stabs the normal card hover animation */
+button:hover {
+  background-color: var(--secondary);
+}
 
 a {
   color: var(--link-color);
@@ -72,22 +71,20 @@ div#content {
   justify-content: center;
   align-items: center;
   vertical-align: top;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in;
 }
 
+
 .card:hover {
-  
   width: 260px;
   height: 260px;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-right: 5px;
   margin-left: 5px;
-
+  background: white;
 }
-
-
-
-
 
 .cardLink {
   display: inline-block;

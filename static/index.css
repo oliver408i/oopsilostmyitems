@@ -24,21 +24,22 @@
   min-width: 250px;
 }
 
-#logout, #create {
+#logout,
+#create {
   position: fixed;
   height: 50px;
   width: 100px;
 }
 
 #logout {
-  margin-left:90%;
+  margin-left: 90%;
 }
 
-#create{
+#create {
   margin-left: 83%;
 }
 
-#create button{
+#create button {
   height: 50px;
   color: black;
 }
@@ -50,4 +51,8 @@
   align-items: center;
   flex-direction: row;
   padding: 16px 0px;
+}
+
+.nodesc {
+  color: #0482AD;
 }
