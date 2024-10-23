@@ -54,21 +54,22 @@ div#content {
   /* Add some space between cards */
 }
 
-.card,.card button{
+.card,
+.card button {
   border: 2px solid var(--secondary);
   border-radius: 8px;
   background-color: white;
   color: black;
   text-decoration: none;
   transition: all 0.5s ease;
-  width: 250px;
-  height: 250px;
+  width: 18vw;
+  height: 16vw;
   display: inline-block;
   padding: 0px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-left: .6vw;
+  margin-right: .6vw;
+  margin-top: .3vw;
+  margin-bottom: .3vw;
   justify-content: center;
   align-items: center;
   vertical-align: top;
@@ -78,12 +79,12 @@ div#content {
 
 
 .card:hover {
-  width: 260px;
-  height: 260px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-right: 5px;
-  margin-left: 5px;
+  width: 18.6vw;
+  height: 16.6vw;
+  margin-top: 0vw;
+  margin-bottom: 0vw;
+  margin-right: .3vw;
+  margin-left: .3vw;
   background: white;
 }
 
