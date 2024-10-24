@@ -1,6 +1,6 @@
 % include("header.stpl", additionalCss="/static/checkout.css", showBack=True, hideHomepage=True)
 
-<body data-item="{{item}}">
+<body data-item="{{item}}" style="max-width: 1000px; padding-left: 25%; padding-right: 25%;">
   <h1>Checkout</h1>
   <form id="checkoutForm">
     <p>You are checking out {{item}} as {{user}}</p>
