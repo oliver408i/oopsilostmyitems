@@ -1,0 +1,36 @@
+% include("header.stpl")
+
+<body data-id="{{checkoutid}}" data-item="{{item}}" style="max-width: 1000px; padding-left: 25%; padding-right: 25%;">
+
+    % checkoutData = data
+
+    <p>You are returning {{checkoutData['amount']}} {{item}}</p>
+    <form id="returnform">
+    <button type="submit" style="margin-top:100px;">Return Item</button></form>
+</body> 
+
+<script>
+    const form = document.getElementById('returnform');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        fetch("/api/item/" + document.body.dataset.item + "/return", {
+            method: 'PUT',
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            id: document.body.dataset.id
+            })
+        })
+        
+        .then(response => {
+            if (response.ok) {
+                window.location = "/";
+            } else if (response.status!== 500){
+                return response;
+            }
+        })
+      })
+</script>
