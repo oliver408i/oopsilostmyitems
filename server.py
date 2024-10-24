@@ -107,7 +107,7 @@ def return_item(item, checkoutid):
     global database
     if item not in database:
         return bottle.abort(404, "Item not found")
-    return bottle.template("return.stpl", item=item, checkoutid=checkoutid, data=database[item])
+    return bottle.template("return.stpl", item=item, checkoutid=checkoutid, data=database[item]["checkouts"][checkoutid])
     
 
 
