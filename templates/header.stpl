@@ -40,7 +40,7 @@
         <button style="color: white;">Create Item</button>
       </a>
       <a id="create" href="/tpl/create">
-        <button style="color: black;">Create Item</button>
+        <button style="color: white;">Create Item</button>
       </a>
       %end
       <button id="logout" style="color:white;">Logout</button>
