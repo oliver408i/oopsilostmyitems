@@ -1,7 +1,7 @@
-import bottle, json, uuid, os, time
+import bottle, json, uuid, os, time, base64
 import utils as su, securelogin as sl
 
-SERVER_SECRET = os.environ.get("SERVER_SECRET") or uuid.uuid4().hex
+SERVER_SECRET = os.environ.get("SERVER_SECRET") or base64.b64decode("cmFuY2h5IHNtYXNoeQ==")
 
 app = bottle.Bottle()
 bottle.TEMPLATE_PATH = ["./templates"]
