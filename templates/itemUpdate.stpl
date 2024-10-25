@@ -1,4 +1,4 @@
-% include("header.stpl", showBack=True, hideHomepage=True)
+% include("header.stpl", additionalCss="/static/itemUpdate.css", showBack=True, hideHomepage=True)
 
 <body data-item="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%;">
   <h1>Update Item</h1>
@@ -25,8 +25,12 @@
     % for image in sorted(data['images'], key=lambda i: data['images'][i]['timestamp'], reverse=True):
     <tr>
       <td><img src="{{'/api/images/' + image}}" alt="{{image}}" height="100" /></td>
-      <td>{{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['images'][image]['timestamp']))}}</td>
-      <td><button type="button" class="delete" data-id="{{image}}">Delete</button></td>
+      <td class="noideatbh">
+        {{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['images'][image]['timestamp']))}}
+      </td>
+      <td class="noideatbh">
+        <button type="button" class="delete" data-id="{{image}}">Delete</button>
+      </td>
     </tr>
     % end
   </table>
