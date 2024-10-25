@@ -1,97 +1,78 @@
-% include("header.stpl", showBack=True, hideHomepage=True)
+% include("header.stpl", additionalCss="/static/itemUpdate.css", showBack=True, hideHomepage=True)
 
 <body data-item="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%;">
-    <h1>Update Item</h1>
-    <form id="updateForm">
-        <style>
-            .styled-textarea {
-                width: 100%; /* Full width textarea */
-                max-width: 600px; /* Max width you desire */
-                height: 150px; /* Adjust height as needed */
-                padding: 10px; /* Add padding for comfort */
-                border: 1px solid #ccc; /* Light border */
-                border-radius: 5px; /* Rounded corners */
-                font-family: Arial, sans-serif; /* Font styling */
-                font-size: 14px; /* Font size */
-                resize: none; /* Disable resizing */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
-                transition: border-color 0.3s, box-shadow 0.3s; /* Transition for focus effect */
-            }
-            
-            .styled-textarea:focus {
-                border-color: #66afe9; /* Change border color on focus */
-                box-shadow: 0 0 5px rgba(102,175,233,0.5); /* Highlight effect */
-                outline: none; /* Remove outline */
-            }
-        </style>
+  <h1>Update Item</h1>
+  <form id="updateForm">
+    <br><br><label for="name">Name</label>
+    <br><br><input type="text" name="name" value="{{data['name']}}" required />
+    <br><br><label for="description">Description</label>
+    <br><br><textarea name="description" class="descriptioninput" rows="5" cols="20">{{data['description']}}</textarea>
+    <br><br><label for="amount">Amount (not checked out)</label>
+    <br><br><input type="number" name="amount" value="{{data['amount']}}" />
+    <br><br><button type="submit">Update</button>
+  </form>
 
-
-        <br><br><label for="name">Name</label>
-        <br><br><input type="text" name="name" value="{{data['name']}}" required/>
-        <br><br><label for="description">Description</label>
-        <br><br><textarea name="description" class="styled-textarea" rows="5" cols="20">{{data['description']}}</textarea>
-        <br><br><label for="amount">Amount (not checked out)</label>
-        <br><br><input type="number" name="amount" value="{{data['amount']}}" />
-        <br><br><button type="submit">Update</button>
-    </form>
-
-    % if 'images' in data:
-    % import time
-    <hr>
-    <h2>Images</h2>
-    <table>
-        <tr>
-            <th>Image</th>
-            <th>Timestamp</th>
-            <th>Action</th>
-        </tr>
-        % for image in sorted(data['images'], key=lambda i: data['images'][i]['timestamp'], reverse=True):
-        <tr>
-            <td><img src="{{'/api/images/' + image}}" alt="{{image}}" height="100"/></td>
-            <td>{{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['images'][image]['timestamp']))}}</td>
-            <td><button type="button" class="delete" data-id="{{image}}">Delete</button></td>
-        </tr>
-        % end
-    </table>
-    <script>
-        const deleteButtons = document.querySelectorAll(".delete");
-        deleteButtons.forEach((button) => {
-            button.addEventListener("click", (event) => {
-                fetch("/api/item/" + document.body.dataset.item + "/deleteimage/" + event.target.dataset.id, {
-                    method: 'DELETE'
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        window.location.reload();
-                    } else {
-                        alert("Error: " + response.statusText);
-                    }
-                })
-            });
-        });
-    </script>
-
+  % if 'images' in data:
+  % import time
+  <hr>
+  <h2>Images</h2>
+  <table>
+    <tr>
+      <th>Image</th>
+      <th>Timestamp</th>
+      <th>Action</th>
+    </tr>
+    % for image in sorted(data['images'], key=lambda i: data['images'][i]['timestamp'], reverse=True):
+    <tr>
+      <td><img src="{{'/api/images/' + image}}" alt="{{image}}" height="100" /></td>
+      <td class="noideatbh">
+        {{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['images'][image]['timestamp']))}}
+      </td>
+      <td class="noideatbh">
+        <button type="button" class="delete" data-id="{{image}}">Delete</button>
+      </td>
+    </tr>
     % end
+  </table>
+  <script>
+    const deleteButtons = document.querySelectorAll(".delete");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        fetch("/api/item/" + document.body.dataset.item + "/deleteimage/" + event.target.dataset.id, {
+          method: 'DELETE'
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.reload();
+            } else {
+              alert("Error: " + response.statusText);
+            }
+          })
+      });
+    });
+  </script>
 
-    <script>
-        const form = document.getElementById("updateForm");
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            fetch("/api/item/" + document.body.dataset.item + "/update", {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({"name": formData.get("name"), "description": formData.get("description"), "amount": formData.get("amount")})
-            })
-            .then((response) => {
-                if (response.ok) {
-                    window.location.href = "/tpl/itemview/" + formData.get("name");
-                } else {
-                    alert("Error: " + response.statusText);
-                }
-            })
-        });
-    </script>
+  % end
+
+  <script>
+    const form = document.getElementById("updateForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      fetch("/api/item/" + document.body.dataset.item + "/update", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({"name": formData.get("name"), "description": formData.get("description"), "amount": formData.get("amount")})
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "/tpl/itemview/" + formData.get("name");
+          } else {
+            alert("Error: " + response.statusText);
+          }
+        })
+    });
+  </script>
 </body>
