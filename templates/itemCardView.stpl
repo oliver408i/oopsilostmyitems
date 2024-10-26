@@ -7,7 +7,7 @@
   <p style="display: flex; justify-content: center;"><i>UUID: {{data['uuid']}}</i></p>
   <p style="display: flex; justify-content: center;">Amount: {{data['amount'] if 'amount' in data else 'N/A'}}</p>
 
-  % if 'checkouts' in data:
+  % if 'checkouts' in data and data['checkouts']:
   % import time
   <table id="checkouttable">
     <tr>
@@ -26,6 +26,8 @@
     </tr>
     % end
   </table>
+  % else:
+  <p style="display: flex; justify-content: center;">No checkouts on this item</p>
   % end
 
   <div style="display: flex; justify-content: center; margin-top: 20px; gap: 20px;">

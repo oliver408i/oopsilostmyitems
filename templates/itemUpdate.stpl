@@ -28,7 +28,7 @@
       <td class="noideatbh">
         {{time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(data['images'][image]['timestamp']))}}
       </td>
-      <td class="noideatbh">
+      <td>
         <button type="button" class="delete" data-id="{{image}}">Delete</button>
       </td>
     </tr>

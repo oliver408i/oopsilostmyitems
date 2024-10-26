@@ -2,14 +2,20 @@
 
 <body data-item="{{item}}" style="max-width: 1000px; padding-left: 25%; padding-right: 25%;">
   <h1>Checkout</h1>
+  % if data['amount'] >= 1:
   <form id="checkoutForm">
     <p>You are checking out {{item}} as {{user}}</p>
     <label for="amount">Amount: </label>
-    <input type="number" name="amount" placeholder="amount" min="1" max="{{data['amount']}}" required />
+    <input type="number" name="amount" placeholder="1" min="1" max="{{data['amount']}}" required />
     <button type="submit">Checkout</button>
   </form>
+  % else:
+  <p>This item is out of stock</p>
+  % end
 
-  % if 'checkouts' in data:
+  <hr>
+
+  % if 'checkouts' in data and any(checkout['user'] == user for checkout in data['checkouts'].values()):
   % import time
   <hr>
   <h2>Your current checkouts on this item</h2>
@@ -30,6 +36,8 @@
     % end
     % end
   </table>
+  % else:
+  <p>You have no current checkouts on this item</p>
   % end
 
   <script>

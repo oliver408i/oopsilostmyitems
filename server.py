@@ -20,8 +20,6 @@ def index():
 
 @app.route("/login")
 def loginView():
-    # NOTE: the two lines below split database into rows of 5 for the grid layout
-    
     return bottle.template("login.stpl", data=database)
 
 
