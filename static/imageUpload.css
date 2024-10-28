@@ -1,0 +1,10 @@
+#imgInput {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-image: url("/static/image-upload.svg");
+  width: 50vw;
+  height: 50vh;
+  background-repeat: no-repeat;
+}
