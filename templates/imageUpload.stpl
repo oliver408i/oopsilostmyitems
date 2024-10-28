@@ -1,12 +1,13 @@
 % include("header.stpl", additionalCss="/static/imageUpload.css", showBack=True, hideHomepage=True)
 
 <body data-name="{{name}}">
-  <h1>Upload Image</h1>
-  <form id="uploadForm">
-    <label for="image">Image</label>
-    <input id="imgInput" type="file" name="image" required hidden>
-    <button type="submit">Upload</button>
-  </form>
+  <div class="container">
+    <h1>Upload Image</h1>
+    <form id="uploadForm">
+      <input id="imgInput" type="file" name="image" required>
+      <button id="submitBtn" type="submit">Upload</button>
+    </form>
+  </div>
 
   <script>
     const form = document.getElementById("uploadForm");

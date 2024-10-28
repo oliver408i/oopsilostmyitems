@@ -1,10 +1,21 @@
-#imgInput {
+.container {
   display: flex;
-  flex: 1;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  border: 2px solid black;
+}
+
+#imgInput {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   background-image: url("/static/image-upload.svg");
-  width: 50vw;
-  height: 50vh;
+  width: 15vw;
+  height: 15vw;
   background-repeat: no-repeat;
+  color: transparent;
+}
+
+#submitBtn {
+  margin-top: 2vh;
 }
