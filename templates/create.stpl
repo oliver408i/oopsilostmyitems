@@ -1,6 +1,7 @@
-% include("header.stpl", hideCreate=False)
+% include("header.stpl", additionalCss="/static/create.css", hideCreate=False)
 
-<body style="max-width: 1000px; padding-left: 25%; padding-right: 25%;"><hr>
+<body style="max-width: 1000px; padding-left: 25%; padding-right: 25%;">
+  <hr>
   <h1>Create Item</h1>
   <form id="createForm">
     <label for="name">Name</label><br>
@@ -10,7 +11,7 @@
     <input type="text" name="description" placeholder="some description" /><br><br>
 
     <label for="image">Initial Image</label><br>
-    <input type="file" name="upload" /><br><br>
+    <input id="imgInput" type="file" name="upload" /><br><br>
 
     <label for="amount">Initial Amount</label><br>
     <input type="number" name="amount" placeholder="0" /><br><br>
@@ -19,58 +20,58 @@
   </form>
 </body>
 
-  <script>
-    const form = document.getElementById("createForm");
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const formData = new FormData(form);
-      fetch("/api/item/" + createForm.name.value + "/create", {
-        method: "PUT"
-      })
-        .then((response) => {
-          if (response.ok) {
-            return
-          } else {
-            if (response.status === 409) {
-              alert("Error: item already exists");
-              return Promise.reject();
-            }
-            alert("Error: " + response.statusText);
+<script>
+  const form = document.getElementById("createForm");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    fetch("/api/item/" + createForm.name.value + "/create", {
+      method: "PUT"
+    })
+      .then((response) => {
+        if (response.ok) {
+          return
+        } else {
+          if (response.status === 409) {
+            alert("Error: item already exists");
             return Promise.reject();
           }
-        }).then(() => {
-          fetch("/api/item/" + createForm.name.value + "/update", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({"description": formData.get("description"), "amount": formData.get("amount")})
-          })
-            .then(response => {
-              if (response.ok) {
-                return
-              } else {
-                alert("Error: " + response.statusText);
-                return Promise.reject();
-              }
-            }).then(() => {
-              if (formData.get("upload")) {
-                fetch("/api/item/" + createForm.name.value + "/image", {
-                  method: "PUT",
-                  body: formData
-                })
-                  .then(response => {
-                    if (response.ok) {
-                      return
-                    } else {
-                      alert("Error: " + response.statusText);
-                      return Promise.reject();
-                    }
-                  })
-              }
-              window.location.href = "/tpl/itemview/" + createForm.name.value;
-            })
+          alert("Error: " + response.statusText);
+          return Promise.reject();
+        }
+      }).then(() => {
+        fetch("/api/item/" + createForm.name.value + "/update", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({"description": formData.get("description"), "amount": formData.get("amount")})
         })
-    });
-  </script>
+          .then(response => {
+            if (response.ok) {
+              return
+            } else {
+              alert("Error: " + response.statusText);
+              return Promise.reject();
+            }
+          }).then(() => {
+            if (formData.get("upload")) {
+              fetch("/api/item/" + createForm.name.value + "/image", {
+                method: "PUT",
+                body: formData
+              })
+                .then(response => {
+                  if (response.ok) {
+                    return
+                  } else {
+                    alert("Error: " + response.statusText);
+                    return Promise.reject();
+                  }
+                })
+            }
+            window.location.href = "/tpl/itemview/" + createForm.name.value;
+          })
+      })
+  });
+</script>
 </body>

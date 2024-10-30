@@ -1,0 +1,7 @@
+#imgInput {
+  background-image: url("/static/image-upload.svg");
+  width: 15vw;
+  height: 15vw;
+  background-repeat: no-repeat;
+  color: transparent;
+}
