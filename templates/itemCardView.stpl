@@ -1,4 +1,4 @@
-% include("header.stpl", additionalCss="/static/checkout.css")
+% include("header.stpl", additionalCss="/static/checkouttable.css")
 
 <body data-name="{{name}}" style="max-width: 1000px;padding-left:25%;padding-right:25%">
   <h1 style="display: flex; justify-content: center;">{{name}}</h1>
@@ -9,7 +9,7 @@
 
   % if 'checkouts' in data and data['checkouts']:
   % import time
-  <table id="checkouttable">
+  <table>
     <tr>
       <th>User</th>
       <th>Checkout ID</th>
