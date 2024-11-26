@@ -1,8 +1,11 @@
-#checkouttable {
+table {
   border: 2px solid black;
   border-radius: 16px;
-  padding: 4px;
   width: 100%;
+}
+
+th {
+  background-color: white;
 }
 
 tr:nth-child(even) {

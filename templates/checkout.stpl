@@ -1,4 +1,4 @@
-% include("header.stpl", additionalCss="/static/checkout.css", showBack=True, hideHomepage=True)
+% include("header.stpl", additionalCss="/static/checkouttable.css", showBack=True, hideHomepage=True)
 
 <body data-item="{{item}}" style="max-width: 1000px; padding-left: 25%; padding-right: 25%;">
   <h1>Checkout</h1>
@@ -19,7 +19,7 @@
   % import time
   <hr>
   <h2>Your current checkouts on this item</h2>
-  <table id="checkouttable">
+  <table>
     <tr>
       <th>Amount</th>
       <th>Timestamp</th>
@@ -65,7 +65,7 @@
     const returnButtons = document.querySelectorAll(".return");
     returnButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        window.location.href = "/tpl/item/" + document.body.dataset.item + "/"+button.dataset.id+"/returnpage";
+        window.location.href = "/tpl/item/" + document.body.dataset.item + "/" + button.dataset.id + "/returnpage";
       });
     });
   </script>
