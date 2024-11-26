@@ -13,6 +13,7 @@ html {
   --link-color: #0482AD;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
+  padding: 1em;
 }
 
 input,
@@ -25,11 +26,10 @@ textarea {
   transition: box-shadow 0.3s;
   outline: none;
   font-size: 14px;
+  width: 30vw;
 }
 
 textarea {
-  width: 600px;
-  max-width: 30vw;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -38,7 +38,8 @@ textarea:focus {
   box-shadow: 0 0 10px rgba(102, 175, 233, 0.5);
 }
 
-button {
+button,
+.backbtn {
   padding: 8px 12px;
   background-color: var(--primary);
   color: var(--quarternary);
@@ -52,7 +53,7 @@ button {
 button:hover {
   background-color: var(--secondary);
   box-shadow: inset black 0 0 1px;
-  box-shadow: rgba(0,0,0,0.3) 1px 1px 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 5px;
 }
 
 
@@ -66,7 +67,7 @@ a:hover {
   text-decoration: underline;
 }
 
-a.cardLink:hover{
+a.cardLink:hover {
   font-size: larger;
 }
 
@@ -76,6 +77,6 @@ div#content {
   flex-wrap: wrap;
   justify-content: center;
   /* Center align cards */
-  gap: 20px;
+  gap: 2vw;
   /* Add some space between cards */
 }
