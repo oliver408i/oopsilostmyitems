@@ -46,11 +46,15 @@ button {
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 button:hover {
   background-color: var(--secondary);
+  box-shadow: inset black 0 0 1px;
+  box-shadow: rgba(0,0,0,0.3) 1px 1px 5px;
 }
+
 
 a {
   color: var(--link-color);
