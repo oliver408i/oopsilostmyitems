@@ -55,11 +55,17 @@ button:hover {
 a {
   color: var(--link-color);
   text-decoration: none;
+  transition: 0.5s;
 }
 
 a:hover {
   text-decoration: underline;
 }
+
+a.cardLink:hover{
+  font-size: larger;
+}
+
 
 div#content {
   display: flex;
