@@ -22,6 +22,7 @@
 #title {
   align-self: flex-start;
   min-width: 250px;
+  font-size: 2em;
 }
 
 #logout,
@@ -32,11 +33,11 @@
 }
 
 #logout {
-  right: 0px;
+  right: 10px;
 }
 
 #create {
-  right: 100px;
+  right: 120px;
 }
 
 #create button {
@@ -69,10 +70,10 @@
   height: 16em;
   display: inline-block;
   padding: 0px;
-  margin-left: .6vw;
-  margin-right: .6vw;
-  margin-top: .3vw;
-  margin-bottom: .3vw;
+  margin-left: .6em;
+  margin-right: .6em;
+  margin-top: .6em;
+  margin-bottom: .6em;
   justify-content: center;
   align-items: center;
   vertical-align: top;
