@@ -1,5 +1,11 @@
 import bottle, json, uuid, os, time, base64
+import hypercorn, aioquic
+import hypercorn.asyncio
+import hypercorn.logging
+import hypercorn.middleware
 import utils as su, securelogin as sl
+
+
 
 SERVER_SECRET = os.environ.get("SERVER_SECRET") or base64.b64decode("cmFuY2h5IHNtYXNoeQ==")
 
@@ -7,7 +13,6 @@ app = bottle.Bottle()
 bottle.TEMPLATE_PATH = ["./templates"]
 
 database = json.load(open("./database.json"))
-
 
 @app.route("/")
 def index():
@@ -337,5 +342,19 @@ def register(user):
 def all():
     return json.dumps({"items": list(database.keys())})
 
+config = hypercorn.Config()
+config.bind = ["0.0.0.0:8080"]
+config.accesslog = "-"
+config.errorlog = "-"
+config.quic_bind = ["0.0.0.0:4433"]
+config.certfile = "./cert.pem"
+config.keyfile = "./key.pem"
+config.alpn_protocols = ["h3","h2"]
+config.loglevel = "DEBUG"
+import asyncio, ssl
 
-app.run()
+async def main():
+    await hypercorn.asyncio.serve(app, config)
+
+asyncio.run(main())
+
